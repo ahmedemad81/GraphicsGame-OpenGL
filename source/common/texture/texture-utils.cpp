@@ -34,7 +34,32 @@ our::Texture2D* our::texture_utils::loadImage(const std::string& filename, bool 
     // Create a texture
     our::Texture2D* texture = new our::Texture2D();
     //Bind the texture such that we upload the image data to its storage
-    //TODO: (Req 5) Finish this function to fill the texture with the data found in "pixels"
+    //DONE (Req 5) Finish this function to fill the texture with the data found in "pixels"
+
+    // Bind the texture using the bind method of the Texture2D class
+    texture->bind();
+
+    // Fill the texture with the data found in "pixels" 
+    // glTexImage2D(GLenum target, GLint level, GLint internalFormat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void * data);
+    // target : Specifies the target texture. (Bind to GL_TEXTURE_2D)
+    // level : Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.
+    // internalFormat : Specifies the number of color components in the texture. (4 as we have RGBA)
+    // width : Specifies the width of the texture image. (size.x)
+    // height : Specifies the height of the texture image. (size.y)
+    // border : Specifies the width of the border. Must be 0.
+    // format : Specifies the format of the pixel data. (GL_RGBA)
+    // type : Specifies the data type of the pixel data. (GL_UNSIGNED_BYTE)
+    // data : Specifies a pointer to the image data in memory.
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+    // Generate mipmaps for the texture
+    if(generate_mipmap){
+        // glGenerateMipmap(GLenum target);
+        // target : Specifies the target texture. (Bind to GL_TEXTURE_2D)
+        // The mipmaps are used for minification filtering (When the texture is smaller than the screen)
+        // Nearest neighbor minification filtering or interpolation minification filtering
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
     
     stbi_image_free(pixels); //Free image data after uploading to GPU
     return texture;

@@ -12,7 +12,11 @@ out vec4 frag_color;
 uniform sampler2D tex;
 
 void main(){
-    //TODO: (Req 5) Change the following line to read the fragment color
-    // from the texture at the received texture coordinates
-    frag_color = vec4(1.0);
+    //DONE (Req 5) Change the following line to read the fragment color
+    // Get the color from the texture at the received texture coordinates 
+    //Multiplying the texture value by the fragment color allows you 
+    //to blend the texture color with the fragment color, creating a range of visual effects
+    //(Ex. a texture of a brick wall with a red fragment color will result in a red brick wall)
+
+    frag_color = fs_in.color * texture(tex, fs_in.tex_coord);
 }

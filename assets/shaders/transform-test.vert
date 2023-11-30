@@ -15,7 +15,7 @@ out Varyings {
 uniform mat4 transform;
 
 void main(){
-    //TODO: (Req 3) Change the next line to apply the transformation matrix
+    //DONE (Req 3) Change the next line to apply the transformation matrix
     
     //transform is our Transformation Matrix (Transformation Rotation Scale)
     //this will be multiplied by the position of the vertex to get the new position

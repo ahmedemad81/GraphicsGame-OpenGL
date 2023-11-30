@@ -9,7 +9,7 @@ namespace our {
     // Remember that the order of transformations is: Scaling, Rotation then Translation
     // HINT: to convert euler angles to a rotation matrix, you can use glm::yawPitchRoll
     glm::mat4 Transform::toMat4() const {
-        //TODO: (Req 3) Write this function
+        //DONE (Req 3) Write this function
 
         // Create a 4D matrix for each transformation
         // Scaling using scale vec3 (x, y, z) from transform.hpp

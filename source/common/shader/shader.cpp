@@ -20,7 +20,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     const char* sourceCStr = sourceString.c_str();
     file.close();
 
-    //TODO: Complete this function
+    //DONE Complete this function
     //Note: The function "checkForShaderCompilationErrors" checks if there is
     // an error in the given shader. You should use it to check if there is a
     // compilation error and print it so that you can know what is wrong with
@@ -34,6 +34,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     glCompileShader(shader);
 
     std::string error = checkForShaderCompilationErrors(shader);
+    // Check if there is a compilation error and print it so that you can know what is wrong with the shader
     if (error != "") {
         std::cerr << "ERROR: Shader compilation failed with the following error: " << error << std::endl;
         return false;
@@ -43,7 +44,6 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     glAttachShader(program, shader);
     //Delete the shader (it won't actually be deleted until the program that it's attached to has been destroyed)
     glDeleteShader(shader);
-    
     //We return true if the compilation succeeded
     return true;
 }
@@ -51,7 +51,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
 
 
 bool our::ShaderProgram::link() const {
-    //TODO: Complete this function
+    //DONE Complete this function
     //Note: The function "checkForLinkingErrors" checks if there is
     // an error in the given program. You should use it to check if there is a
     // linking error and print it so that you can know what is wrong with the
@@ -61,6 +61,7 @@ bool our::ShaderProgram::link() const {
     glLinkProgram(program);
 
     std::string error = checkForLinkingErrors(program);
+    // Check if there is a linking error and print it so that you can know what is wrong with the program
     if (error != "") {
         std::cerr << "ERROR: Shader linking failed with the following error: " << error << std::endl;
         return false;

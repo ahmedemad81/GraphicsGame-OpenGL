@@ -41,7 +41,55 @@ namespace our {
         // This function should set the OpenGL options to the values specified by this structure
         // For example, if faceCulling.enabled is true, you should call glEnable(GL_CULL_FACE), otherwise, you should call glDisable(GL_CULL_FACE)
         void setup() const {
-            //TODO: (Req 4) Write this function
+            //DONE (Req 4) Write this function
+            // You should use the functions glEnable, glDisable, glCullFace, glFrontFace, 
+            // glDepthFunc, glBlendFunc, glBlendEquation, glColorMask and glDepthMask
+
+            // Enable/Disable Face Culling
+            if (faceCulling.enabled) {
+                glEnable(GL_CULL_FACE);
+            } else {
+                glDisable(GL_CULL_FACE);
+            }
+            // Set Face Culling
+            glCullFace(faceCulling.culledFace);
+            // Set Front Face 
+            glFrontFace(faceCulling.frontFace);
+
+            // Enable/Disable Depth Testing 
+            if (depthTesting.enabled) {
+                glEnable(GL_DEPTH_TEST);
+            } else {
+                glDisable(GL_DEPTH_TEST);
+            }
+            // Set Depth Function
+            glDepthFunc(depthTesting.function);
+
+            // Enable/Disable Blending
+            if (blending.enabled) {
+                glEnable(GL_BLEND);
+            } else {
+                glDisable(GL_BLEND);
+            }
+            // Set Blending Function 
+            // Ex. glBlendFunc(GLenum sfactor, GLenum dfactor)
+            glBlendFunc(blending.sourceFactor, blending.destinationFactor);
+
+            // Set Blending Equation 
+            // Ex. glBlendEquation(GLenum mode)
+            glBlendEquation(blending.equation);
+            
+            // Set Blending Color 
+            // Ex. glBlendColor(GLfloat red,GLfloat green,GLfloat blue, GLfloat alpha)
+            glBlendColor(blending.constantColor.r, blending.constantColor.g, blending.constantColor.b, blending.constantColor.a);
+
+            // Color Mask
+            // Ex. glColorMask(GLboolean red,GLboolean green,GLboolean blue, GLboolean alpha)
+            glColorMask(colorMask.r, colorMask.g, colorMask.b, colorMask.a);
+
+            // Depth Mask
+            // Ex. glDepthMask(GLboolean flag)
+            glDepthMask(depthMask);
         }
 
         // Given a json object, this function deserializes a PipelineState structure

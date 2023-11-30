@@ -9,7 +9,7 @@
 // So two uniforms should be added: translation (vec2) and scale (vec2).
 // Each vertex "v" should be transformed to be "scale * v + translation".
 // The default value for "translation" is (0.0, 0.0) and for "scale" is (1.0, 1.0).
-//TODO: (Req 1) Finish this shader
+//DONE (Req 1) Finish this shader
 
 out Varyings {
   vec3 color;
@@ -21,22 +21,24 @@ out Varyings {
 
 void main(){
 
+  // The NDCs are already given with these value
   const vec3 positions[3] = vec3[3](
     vec3(-0.5, -0.5, 0.0),
     vec3(0.5, -0.5, 0.0),
     vec3(0.0, 0.5, 0.0)
   );
 
+  // The colors are already given with these value
   const vec3 colors[3] = vec3[3](
     vec3(1.0, 0.0, 0.0),
     vec3(0.0, 1.0, 0.0),
     vec3(0.0, 0.0, 1.0)
   );
 
-  // We need to transform the vertex position (only x and y) as z will be handled later (Depth testing)
+  // Transform the vertex position (only x and y) as z will be handled later in the pipeline
   vec2 transformedPosition = (positions[gl_VertexID].xy) * scale + translation;
 
-  // We need to set the w component to 1.0 as it is a point
+  // Set the position of the vertex to the transformed position with w = 1.0
   gl_Position = vec4(transformedPosition, positions[gl_VertexID].z , 1.0); 
 
   // Extract the color from the array

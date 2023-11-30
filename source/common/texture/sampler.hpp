@@ -13,34 +13,67 @@ namespace our {
     public:
         // This constructor creates an OpenGL sampler and saves its object name in the member variable "name" 
         Sampler() {
-            //TODO: (Req 6) Complete this function
+            //DONE (Req 6) Complete this function
+            // Create a sampler object
+            //glGenSamplers( GLsizei n, GLuint *samplers)
+            // n : Specifies the number of sampler object names to generate.
+            // samplers : Specifies an array in which the generated sampler object names are stored.
+            glGenSamplers(1, &name);
         };
 
         // This deconstructor deletes the underlying OpenGL sampler
         ~Sampler() { 
-            //TODO: (Req 6) Complete this function
-         }
+            //DONE (Req 6) Complete this function
+            // Delete the sampler object
+            // glDeleteSamplers( GLsizei n, const GLuint *samplers)
+            // n : Specifies the number of sampler objects to be deleted.
+            // samplers : Specifies an array of sampler objects to be deleted.
+            glDeleteSamplers(1, &name);
+        }
 
         // This method binds this sampler to the given texture unit
         void bind(GLuint textureUnit) const {
-            //TODO: (Req 6) Complete this function
+            //DONE (Req 6) Complete this function
+            // Bind the sampler object to the given texture unit
+            // glBindSampler( GLuint unit, GLuint sampler)
+            // unit : Specifies the index of the texture unit to which the sampler is bound.
+            // sampler : Specifies the name of a sampler object to bind to the texture unit specified by unit.
+            glBindSampler(textureUnit, name);
         }
 
         // This static method ensures that no sampler is bound to the given texture unit
         static void unbind(GLuint textureUnit){
-            //TODO: (Req 6) Complete this function
+            //DONE (Req 6) Complete this function
+            // Bind the sampler object to the given texture unit
+            // glBindSampler( GLuint unit, GLuint sampler)
+            // unit : Specifies the index of the texture unit to which the sampler is bound.
+            // sampler : Specifies the name of a sampler object to bind to the texture unit specified by unit. 
+            // When sampler is zero, the default sampler is bound to the specified texture unit.
+            glBindSampler(textureUnit, 0);
         }
 
         // This function sets a sampler paramter where the value is of type "GLint"
         // This can be used to set the filtering and wrapping parameters
         void set(GLenum parameter, GLint value) const {
-            //TODO: (Req 6) Complete this function
+            //DONE (Req 6) Complete this function
+            // Set the sampler parameter
+            // glSamplerParameteri( GLuint sampler, GLenum pname, GLint param)
+            // sampler : Specifies the sampler object whose parameter to modify.
+            // pname : Specifies the symbolic name of a single-valued sampler parameter.
+            // param : Specifies the value of pname.
+            glSamplerParameteri(name, parameter, value);
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat"
         // This can be used to set the "GL_TEXTURE_MAX_ANISOTROPY_EXT" parameter
         void set(GLenum parameter, GLfloat value) const {
-            //TODO: (Req 6) Complete this function
+            //DONE (Req 6) Complete this function
+            // Set the sampler parameter
+            // glSamplerParameterf( GLuint sampler, GLenum pname, GLfloat param)
+            // sampler : Specifies the sampler object whose parameter to modify.
+            // pname : Specifies the symbolic name of a single-valued sampler parameter.
+            // param : Specifies the value of pname.
+            glSamplerParameterf(name, parameter, value);
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat[4]"

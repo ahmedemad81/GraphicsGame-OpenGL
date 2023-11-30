@@ -17,6 +17,11 @@ uniform mat4 transform;
 void main(){
     //TODO: (Req 3) Change the next line to apply the transformation matrix
     
+    //transform is our Transformation Matrix (Transformation Rotation Scale)
+    //this will be multiplied by the position of the vertex to get the new position
+    //vec4(position, 1.0) is the position of the vertex and the 1 is the w component
+    gl_Position = transform * vec4(position, 1.0);
+    
     // No need to change any of the following lines
     vs_out.position = position;
     vs_out.color = color;

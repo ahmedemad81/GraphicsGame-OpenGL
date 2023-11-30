@@ -9,7 +9,7 @@ in Varyings {
 
 out vec4 frag_color;
 
-// currently the shader just returns the interpalated color varying.
+// currently the shader just returns the interpolated color varying.
 // However, we want to mix the color channels around. We can do this using a 
 // color matrix which we will send to the shader as 3 uniforms: red, green, blue.
 // Each of these 3 variables will be a vec4. To apply the channel mixing for a

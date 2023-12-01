@@ -198,8 +198,10 @@ namespace our
                   {
             //DONE: (Req 9) Finish this function
             // HINT: the following return should return true "first" should be drawn before "second".
-
-            return first.center.z < second.center.z;; });
+            // Distance from the camera to the center of the first object is greater than the distance from the camera to the center of the second object
+            // We use distance from the camera to the center of the object to sort the transparent objects
+            // The z component isn't enough to sort the transparent objects as the z component is the distance from the camera to the object center in the camera space
+            return glm::distance(first.center, cameraForward) > glm::distance(second.center, cameraForward); });
 
         // DONE: (Req 9) Get the camera ViewProjection matrix and store it in VP
         //  As it was already calculated (View Matrix)

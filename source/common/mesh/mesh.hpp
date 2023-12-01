@@ -51,7 +51,7 @@ namespace our
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
             // Size of array is size of each element * number of elements
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements.size() * sizeof(unsigned int), elements.data(), GL_STATIC_DRAW);
-            elementCount = elements.size();
+            elementCount = (int)elements.size();
 
             // Position (size 3 Vec3 (XYZ), type float, normalized false, stride 3 floats or the size of thr vertex, offset 0)
             glEnableVertexAttribArray(ATTRIB_LOC_POSITION);

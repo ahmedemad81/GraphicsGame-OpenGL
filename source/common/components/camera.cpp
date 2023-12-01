@@ -39,7 +39,7 @@ namespace our {
         // We need to multiply vectors by the transformation Matrix
         // To multiply the 4D Matrix we will use a vec3 (coordinated,w)
         // Cast back te vec3 as it is the input for lookAt function (Ignore w)
-        glm::mat4 viewMatrix = glm::lookAt(glm::vec3(M*glm::vec4(0,0,0,1)),glm::vec3(M*glm::vec4(0,0,-1,1)),glm::vec3(M*glm::vec4(0,1,0,1)));
+        glm::mat4 viewMatrix = glm::lookAt(glm::vec3(M*glm::vec4(0,0,0,1)),glm::vec3(M*glm::vec4(0,0,-1,1)),glm::vec3(M*glm::vec4(0,1,0,0)));
         return viewMatrix;
     }
 
@@ -53,7 +53,7 @@ namespace our {
         // For the perspective camera, you can use glm::perspective
 
         // Aspect ratio is the ratio of the width to the height of the viewport
-        float aspectRatio = viewportSize.x / (float)viewportSize.y;
+        float aspectRatio = (float)viewportSize.x / (float)viewportSize.y;
         
         // Check if the camera is orthographic or perspective
         // If it is orthographic, we need to compute the left, right, bottom and up values by the above rules (camera.hpp -> orthoHeight)
@@ -61,10 +61,10 @@ namespace our {
         // If it is perspective, we will use values from the camera.hpp file 
         // Perspective camera depends on the fovY value as it assumes that the objects are closer to the camera will seem larger than objects far away (more realistic/ human eye)
         if(cameraType == CameraType::ORTHOGRAPHIC){
-            float orthoWidth = orthoHeight * aspectRatio;
+            float orthoWidth = (float)orthoHeight * aspectRatio;
             return glm::ortho(-orthoWidth/2, orthoWidth/2, -orthoHeight/2, orthoHeight/2);
         } else{
-            //if(cameraType == CameraType::PERSPECTIVE)
+            // if (cameraType == CameraType::PERSPECTIVE)
             return glm::perspective(fovY, aspectRatio, near, far);
         }
     }

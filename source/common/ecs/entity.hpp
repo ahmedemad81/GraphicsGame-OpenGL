@@ -61,7 +61,7 @@ namespace our
             // Checking if the component can be dynamically cast to "T*"
             for (auto it = components.begin(); it != components.end(); it++)
             {
-                if (dynamic_cast<T *>(*it))
+                if (dynamic_cast<T *>(*it) != nullptr)
                 {
                     return dynamic_cast<T *>(*it);
                 }
@@ -89,10 +89,11 @@ namespace our
             //  If found, delete the found component and remove it from the components list
              for (auto it = components.begin(); it != components.end(); it++)
             {
-                if (dynamic_cast<T *>(*it))
+                if (dynamic_cast<T *>(*it) != nullptr)
                 {
                     delete *it;
                     components.erase(it);
+                    break;
                 }
             }
         }

@@ -46,21 +46,21 @@ namespace our {
     // Creates and returns the camera projection matrix
     // "viewportSize" is used to compute the aspect ratio
     glm::mat4 CameraComponent::getProjectionMatrix(glm::ivec2 viewportSize) const {
-        //Done: (Req 8) Wrtie this function
+        //Done: (Req 8) Write this function
         // NOTE: The function glm::ortho can be used to create the orthographic projection matrix
         // It takes left, right, bottom, top. Bottom is -orthoHeight/2 and Top is orthoHeight/2.
         // Left and Right are the same but after being multiplied by the aspect ratio
         // For the perspective camera, you can use glm::perspective
 
         // Aspect ratio is the ratio of the width to the height of the viewport
-        float aspectRatio = (float)viewportSize.x / (float)viewportSize.y;
+        float aspectRatio = (float)viewportSize.x /viewportSize.y;
         
         // Check if the camera is orthographic or perspective
         // If it is orthographic, we need to compute the left, right, bottom and up values by the above rules (camera.hpp -> orthoHeight)
         // Orthographic camera doesn't depend on the fovY value as it assumes that all the objects are away from the camera with the same width as the camera is at infinite distance from the scene
         // If it is perspective, we will use values from the camera.hpp file 
         // Perspective camera depends on the fovY value as it assumes that the objects are closer to the camera will seem larger than objects far away (more realistic/ human eye)
-        if(cameraType == CameraType::ORTHOGRAPHIC){
+         if(cameraType == CameraType::ORTHOGRAPHIC){
             float orthoWidth = (float)orthoHeight * aspectRatio;
             return glm::ortho(-orthoWidth/2, orthoWidth/2, -orthoHeight/2, orthoHeight/2);
         } else{

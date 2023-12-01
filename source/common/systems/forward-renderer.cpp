@@ -2,6 +2,9 @@
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
 
+#include <iostream>
+using namespace std;
+
 namespace our
 {
 
@@ -57,13 +60,44 @@ namespace our
         // Then we check if there is a postprocessing shader in the configuration
         if (config.contains("postprocess"))
         {
-            // TODO: (Req 11) Create a framebuffer
+            // DONE (Req 11) Create a framebuffer
+            // void glGenFramebuffers(	GLsizei n, GLuint *ids);
+            // n : Specifies the number of framebuffer object names to generate.
+            // ids : Specifies an array in which the generated framebuffer object names are stored.
+            glGenFramebuffers(1, &postprocessFrameBuffer);
 
-            // TODO: (Req 11) Create a color and a depth texture and attach them to the framebuffer
-            //  Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
-            //  The depth format can be (Depth component with 24 bits).
+            // DONE (Req 11) Create a color and a depth texture and attach them to the framebuffer
+            // Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
+            // The depth format can be (Depth component with 24 bits).
 
-            // TODO: (Req 11) Unbind the framebuffer just to be safe
+            // Bind the framebuffer using the bind method of the Texture2D class
+            glBindFramebuffer(GL_FRAMEBUFFER, postprocessFrameBuffer);
+
+            // Create a color texture
+            colorTarget = texture_utils::empty(GL_RGBA, windowSize);
+            
+            // Create a depth texture
+            depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT, windowSize);
+
+            std::cout << "Color buffer: " << colorTarget << std::endl;
+            std::cout << "Depth buffer: " << depthTarget << std::endl;
+
+            // Attach the color texture to the framebuffer
+            // void glFramebufferTexture2D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
+            // target : Specifies the target to which the framebuffer object is bound. (Bind to GL_FRAMEBUFFER)
+            // attachment : Specifies the attachment point of the framebuffer. (GL_COLOR_ATTACHMENT0, GL_DEPTH_ATTACHMENT, GL_STENCIL_ATTACHMENT)
+            // textarget : Specifies the type of texture to attach. (GL_TEXTURE_2D)
+            // texture : Specifies the texture object to attach.
+            // level : Specifies the mipmap level of the texture image to attach.
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
+
+
+            // DONE (Req 11) Unbind the framebuffer just to be safe
+            // void glBindFramebuffer(GLenum target, GLuint framebuffer);
+            // target : Specifies the target to which the framebuffer object is bound. (Bind to GL_FRAMEBUFFER)
+            // framebuffer : Specifies the framebuffer object name.
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
             // Create a vertex array to use for drawing the texture
             glGenVertexArrays(1, &postProcessVertexArray);
@@ -190,7 +224,11 @@ namespace our
         // If there is a postprocess material, bind the framebuffer
         if (postprocessMaterial)
         {
-            // TODO: (Req 11) bind the framebuffer
+            // DONE (Req 11) bind the framebuffer
+            // void glBindFramebuffer(GLenum target, GLuint framebuffer);
+            // target : Specifies the target to which the framebuffer object is bound. (Bind to GL_FRAMEBUFFER)
+            // framebuffer : Specifies the framebuffer object name.
+            glBindFramebuffer(GL_FRAMEBUFFER, postprocessFrameBuffer);
         }
 
         // TODO: (Req 9) Clear the color and depth buffers
@@ -248,9 +286,25 @@ namespace our
         // If there is a postprocess material, apply postprocessing
         if (postprocessMaterial)
         {
-            // TODO: (Req 11) Return to the default framebuffer
+            // DONE (Req 11) Return to the default framebuffer
+            // void glBindFramebuffer(GLenum target, GLuint framebuffer);
+            // target : Specifies the target to which the framebuffer object is bound. (Bind to GL_FRAMEBUFFER)
+            // framebuffer : Specifies the framebuffer object name.
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-            // TODO: (Req 11) Setup the postprocess material and draw the fullscreen triangle
+            // DONE (Req 11) Setup the postprocess material and draw the fullscreen triangle
+            postprocessMaterial->setup();
+            // Bind the vertex array using the bind method of the Texture2D class
+            glBindVertexArray(postProcessVertexArray);
+
+            // void glDrawArrays(GLenum mode, GLint first, GLsizei count);
+            // mode : Specifies what kind of primitives to render. (GL_TRIANGLES)
+            // first : Specifies the starting index in the enabled arrays.
+            // count : Specifies the number of indices to be rendered.
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+
+            // Unbind the vertex array using the unbind method of the Texture2D class
+            glBindVertexArray(0);
         }
     }
 

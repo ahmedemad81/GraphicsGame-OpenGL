@@ -264,6 +264,12 @@ namespace our
 
             // DONE (Req 10) We want the sky to be drawn behind everything (in NDC space, z=1)
             // We can acheive the is by multiplying by an extra matrix after the projection but what values should we put in it?
+
+            // It is orthographic projection matrix with an additional translation applied to shift the entire scene to the far plane in NDC.
+            // The first two rows maintain the x and y coordinates without any changes.
+            // The third row removes the z-coordinate, flattening all points to the z=0 plane.
+            // The fourth row shifts the entire scene along the positive z-axis to z=1 (far plane) in NDC.
+            // It is used for rendering background elements like a skybox, ensuring that it is drawn behind all other objects in the scene.
             glm::mat4 alwaysBehindTransform = glm::mat4(
                 1.0f, 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f, 0.0f,

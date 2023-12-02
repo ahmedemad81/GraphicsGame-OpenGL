@@ -20,14 +20,14 @@ namespace our {
         // This set of pipeline options specifies whether depth testing will be used or not and how it will be configured
         struct {
             bool enabled = false;
-            GLenum function = GL_LEQUAL;
+            GLenum function = GL_LEQUAL; // If fragment_depth ≤ depth_buffer_depth, the fragment passes the depth test and is considered visible.
         } depthTesting;
 
         // This set of pipeline options specifies whether blending will be used or not and how it will be configured
         struct {
             bool enabled = false;
             GLenum equation = GL_FUNC_ADD;
-            GLenum sourceFactor = GL_SRC_ALPHA;
+            GLenum sourceFactor = GL_SRC_ALPHA;        // c = α cs + (1 − α) cd
             GLenum destinationFactor = GL_ONE_MINUS_SRC_ALPHA;
             glm::vec4 constantColor = {0, 0, 0, 0};
         } blending;

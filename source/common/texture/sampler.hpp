@@ -54,6 +54,8 @@ namespace our {
 
         // This function sets a sampler paramter where the value is of type "GLint"
         // This can be used to set the filtering and wrapping parameters
+        // Parameters being set includes GL_TEXTURE_MAG_FILTER, GL_TEXTURE_MIN_FILTER to set the filtering parameters and GL_TEXTURE_WRAP_S, GL_TEXTURE_WRAP_T to set the wrapping parameters
+        // For example, To set GL_TEXTURE_MAG_FILTER parameter, the parameter argument should be GL_TEXTURE_MAG_FILTER and the value argument should be GL_LINEAR
         void set(GLenum parameter, GLint value) const {
             //DONE (Req 6) Complete this function
             // Set the sampler parameter

@@ -85,10 +85,13 @@ namespace our {
 
             // Color Mask
             // Ex. glColorMask(GLboolean red,GLboolean green,GLboolean blue, GLboolean alpha)
+            // glColorMask is used to enable or disable writing to the color buffer.
+            // If disabled, no color values are written to the color buffer regardless of drawing operations attempted.
             glColorMask(colorMask.r, colorMask.g, colorMask.b, colorMask.a);
 
             // Depth Mask
             // Ex. glDepthMask(GLboolean flag)
+            // glDepthMask is used to enable or disable writing into the depth buffer.
             glDepthMask(depthMask);
         }
 

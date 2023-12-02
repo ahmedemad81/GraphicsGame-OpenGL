@@ -26,18 +26,6 @@ our::Texture2D* our::texture_utils::empty(GLenum format, glm::ivec2 size){
     // data is nullptr as no data is passed to the function, we are creating an empty texture.
     glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, NULL);
 
-    // Set the texture wrapping/filtering options (on the currently bound texture object)
-    // glTexParameteri(GLenum target, GLenum pname, GLint param);
-    // target : Specifies the target texture. (Bind to GL_TEXTURE_2D)
-    // pname : Specifies the symbolic name of a single-valued texture parameter. (GL_TEXTURE_WRAP_S, GL_TEXTURE_WRAP_T, GL_TEXTURE_MIN_FILTER, GL_TEXTURE_MAG_FILTER)
-    // param : Specifies the value of pname. (GL_CLAMP_TO_EDGE, GL_NEAREST, GL_LINEAR)
-    // GL_CLAMP_TO_EDGE : Causes s coordinates to be clamped to the range [1/2N, 1 - (1/2N)] where N is the size of the texture in the direction of clamping.
-    // GL_NEAREST : Returns the value of the texture element that is nearest (in Manhattan distance) to the specified texture coordinates.
-    // GL_LINEAR : Returns the weighted average of the four texture elements that are closest to the specified texture coordinates.
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // GL_NEAREST : Returns the value of the texture element that is nearest (in Manhattan distance) to the specified texture coordinates.
-
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_NEAREST : Returns the value of the texture element that is nearest (in Manhattan distance) to the specified texture coordinates.
-
     texture->unbind();
     return texture;
 }

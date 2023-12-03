@@ -61,6 +61,8 @@ namespace our
         if (config.contains("postprocess"))
         {
             // DONE (Req 11) Create a framebuffer
+            // Framebuffer is used to perform additional image processing on the rendered scene after the initial rendering to the screen.
+            // The rendered results are stored in a framebuffer object (FBO) rather than being immediately displayed on the screen.
             // void glGenFramebuffers(	GLsizei n, GLuint *ids);
             // n : Specifies the number of framebuffer object names to generate.
             // ids : Specifies an array in which the generated framebuffer object names are stored.
@@ -69,18 +71,21 @@ namespace our
             // DONE (Req 11) Create a color and a depth texture and attach them to the framebuffer
             // Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
             // The depth format can be (Depth component with 24 bits).
-
+            
             // Bind the framebuffer using the bind method of the Texture2D class
+            // void glBindFramebuffer(GLenum target, GLuint framebuffer);
+            // target : Specifies the target to which the framebuffer object is bound. (Bind to GL_FRAMEBUFFER)
+            // framebuffer : Specifies the framebuffer object name.
             glBindFramebuffer(GL_FRAMEBUFFER, postprocessFrameBuffer);
 
             // Create a color texture
             colorTarget = texture_utils::empty(GL_RGBA, windowSize);
             
+            // Depth texture is used to store depth information for each pixel in a scene. 
+            // It contains depth values that represent the distance of objects from the viewer (camera).
+
             // Create a depth texture
             depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT, windowSize);
-
-            std::cout << "Color buffer: " << colorTarget << std::endl;
-            std::cout << "Depth buffer: " << depthTarget << std::endl;
 
             // Attach the color texture to the framebuffer
             // void glFramebufferTexture2D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
@@ -94,10 +99,11 @@ namespace our
 
 
             // DONE (Req 11) Unbind the framebuffer just to be safe
-            // void glBindFramebuffer(GLenum target, GLuint framebuffer);
-            // target : Specifies the target to which the framebuffer object is bound. (Bind to GL_FRAMEBUFFER)
-            // framebuffer : Specifies the framebuffer object name.
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+            // By using Vertex Arrays and Vertex Buffers together, you can efficiently manage and organize vertex data, 
+            // reducing redundant state changes. The VAO helps encapsulate the setup and configuration of vertex attributes, 
+            // while VBOs store the actual data.
 
             // Create a vertex array to use for drawing the texture
             glGenVertexArrays(1, &postProcessVertexArray);

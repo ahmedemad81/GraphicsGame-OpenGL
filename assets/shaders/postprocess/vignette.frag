@@ -19,6 +19,11 @@ void main(){
     // while the texture coordinate space ranges from 0 to 1
     // We have the pixel's texture coordinate, how can we compute its location in the NDC space?
 
+    // The length function calculates the distance from the center of the NDC space (0, 0) to the transformed texture coordinate. 
+    // This distance represents how far the current pixel is from the center.
+    // Squaring emphasizes the difference from the center and increases the effect towards the corners.
+    // Adding 1 ensures that the denominator is always greater than 1.
+
     // To transform from texture coordinate space to NDC space, we can multiply by 2 and subtract 1
     vec3 vignette_color = texture(tex, tex_coord).rgb / (1 + pow(length(tex_coord * 2 - 1), 2));
 

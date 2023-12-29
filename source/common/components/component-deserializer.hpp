@@ -5,6 +5,7 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
+#include "collider.hpp"
 
 namespace our {
 
@@ -22,6 +23,8 @@ namespace our {
             component = entity->addComponent<MovementComponent>();
         } else if (type == MeshRendererComponent::getID()) {
             component = entity->addComponent<MeshRendererComponent>();
+        } else if (type == Collider::getID()) {
+            component = entity->addComponent<Collider>();
         }
         if(component) component->deserialize(data);
     }

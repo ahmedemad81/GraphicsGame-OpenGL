@@ -7,6 +7,7 @@
 #include <systems/free-camera-controller.hpp>
 #include <systems/movement.hpp>
 #include <asset-loader.hpp>
+#include <systems/collider.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
 class Injuredstate: public our::State {
@@ -15,6 +16,7 @@ class Injuredstate: public our::State {
     our::ForwardRenderer renderer;
     our::FreeCameraControllerSystem cameraController;
     our::MovementSystem movementSystem;
+    our::ColliderSystem colliderSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -29,6 +31,8 @@ class Injuredstate: public our::State {
         }
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
+        // We intialize the collider system
+        colliderSystem.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer_injured"]);
@@ -38,6 +42,8 @@ class Injuredstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
+        // We update the collider system
+        colliderSystem.update(&world, (float)deltaTime);
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
 
@@ -47,6 +53,19 @@ class Injuredstate: public our::State {
         if(keyboard.justPressed(GLFW_KEY_ESCAPE)){
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
+        }
+
+        // If no entites called montser exist, go to win state 
+        int monster_count = 0;
+        for(auto entity : world.getEntities()){
+            if(entity->name == "monster")
+            {
+                monster_count++;
+            }
+        }
+        if (monster_count == 0)
+        {
+            getApp()->changeState("win");
         }
     }
 

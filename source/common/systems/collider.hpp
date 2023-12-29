@@ -54,7 +54,7 @@ namespace our
                         // Calculate center of each collider
 						auto collider1_center = collider1->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1);
 						auto collider2_center = collider2->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1);
-						    
+						
                         // Calculate absolute distance between each collider center
 						auto dist = abs(glm::distance(collider1_center, collider2_center));
                         
@@ -68,54 +68,50 @@ namespace our
                                 world->markForRemoval(collider2->getOwner());
                                 world->deleteMarkedEntities();
                             }
-                            else if(collider1_name=="monster" && collider2_name=="sword") 
-                            {
-                                world->markForRemoval(collider1->getOwner());
-                                world->deleteMarkedEntities();
-                            }
+                            // else if(collider1_name=="monster" && collider2_name=="sword") 
+                            // {
+                            //     world->markForRemoval(collider1->getOwner());
+                            //     world->deleteMarkedEntities();
+                            // }
                             
                             // If player collides with monster, player loses health
                             if(collider1_name=="player" && collider2_name=="monster") 
                             {
-                                if (health == 1)
-                                {
-                                    health = 0;
-                                    app->changeState("lose"); // change state to lose
-                                }
                                 if (health == 2)
                                 {
-                                    health = 1;
-
+                                    health -= 1;
                                     world->markForRemoval(collider2->getOwner());
                                     world->deleteMarkedEntities(); // delete the monster who hit the player
-
                                     app->changeState("injured"); // change state to injured
                                 }
-                            }
-                            else if(collider1_name=="monster" && collider2_name=="player") 
-                            {
-                                if (health == 1)
+                                else if (health == 1)
                                 {
-                                    health = 0;
                                     app->changeState("lose"); // change state to lose
                                 }
-                                if (health == 2)
-                                {
-                                    health = 1;
 
-                                    world->markForRemoval(collider1->getOwner());
-                                    world->deleteMarkedEntities(); // delete the monster who hit the player
-
-                                    app->changeState("injured"); // change state to injured
-                                }
                             }
+                            // else if(collider1_name=="monster" && collider2_name=="player") 
+                            // {
+                            //     if (health == 2)
+                            //     {
+                            //         cout<<"health:ahme 34d "<<health<<endl;
+                            //         health -= 1;
 
-					    }
-				    }
-			    }
+                            //         world->markForRemoval(collider1->getOwner());
+                            //         world->deleteMarkedEntities(); // delete the monster who hit the player
+                            //         app->changeState("injured"); // change state to injured
+                            //     }
+                            //     else if (health == 1)
+                            //     {
+                            //         cout<<"health: 453 hla"<<health<<endl;
+                            //         app->changeState("lose"); // change state to lose
+                            //     }
+                                
+                            // }
+					}
+				}
+			}
             }
-
         };
-
-    }
+    };
 }

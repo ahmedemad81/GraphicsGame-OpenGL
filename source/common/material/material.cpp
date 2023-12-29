@@ -12,6 +12,26 @@ namespace our {
         shader->use();         // Use the shader that was implemented in shader.hpp
     }
 
+    void LitMaterial::setup() const 
+    {
+        Material::setup();
+
+        /*TODO (req Light): SEND NEEDED DATA TO SHADER*/
+    }
+
+    void LitMaterial::deserialize(const nlohmann::json& data)
+    {
+        Material::deserialize(data);
+        if(!data.is_object()) return;
+        diffuse = data.value("diffuse", glm::vec4(1.0f));
+        specular = data.value("specular", glm::vec4(1.0f));
+        ambient = data.value("ambient", glm::vec4(1.0f));
+        emissive = data.value("emissive", glm::vec4(1.0f));
+
+        shininess = data.value("shininess", 1.0f);
+    }
+
+
     // This function read the material data from a json object
     void Material::deserialize(const nlohmann::json& data){
         if(!data.is_object()) return;
@@ -32,6 +52,22 @@ namespace our {
         // This is done by calling the set function of vec4 type of the shader class 
         shader->set("tint", tint);     
 
+    }
+
+    void LitTintedMaterial::setup() const 
+    {
+        LitMaterial::setup();
+
+        /*TODO (req Light): SEND NEEDED DATA TO SHADER*/
+    }
+
+    void LitTintedMaterial::deserialize(const nlohmann::json& data)
+    {
+        LitMaterial::deserialize(data);
+        if(!data.is_object()) return;
+        albedo_tint = data.value("albedo_tint", glm::vec4(1.0f));
+        specular_tint = data.value("specular_tint", glm::vec4(1.0f));
+        emissive_tint = data.value("emissive_tint", glm::vec4(1.0f));
     }
 
     // This function read the material data from a json object
@@ -88,6 +124,33 @@ namespace our {
         alphaThreshold = data.value("alphaThreshold", 0.0f);
         texture = AssetLoader<Texture2D>::get(data.value("texture", ""));
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
+    }
+
+    void LitTexturedMaterial::setup() const 
+    {
+        LitTintedMaterial::setup();
+
+        /*TODO (req Light): SEND NEEDED DATA TO SHADER*/
+    }
+
+    void LitTexturedMaterial::deserialize(const nlohmann::json& data)
+    {
+        LitTintedMaterial::deserialize(data);
+        if(!data.is_object()) return;
+
+        albedo_map = AssetLoader<Texture2D>::get(data.value("albedo_map", ""));
+        albedo_sampler = AssetLoader<Sampler>::get(data.value("albedo_sampler", ""));
+        specular_map = AssetLoader<Texture2D>::get(data.value("specular_map", ""));
+        specular_sampler = AssetLoader<Sampler>::get(data.value("specular_sampler", ""));
+        roughness_map = AssetLoader<Texture2D>::get(data.value("roughness_map", ""));
+        roughness_sampler = AssetLoader<Sampler>::get(data.value("roughness_sampler", ""));
+        roughness_range = data.value("roughness_range", glm::vec2(0.0f, 1.0f)); 
+        ambient_occlusion_map = AssetLoader<Texture2D>::get(data.value("ambient_occlusion_map", ""));
+        ambient_occlusion_sampler = AssetLoader<Sampler>::get(data.value("ambient_occlusion_sampler", ""));      
+        emissive_map = AssetLoader<Texture2D>::get(data.value("emissive_map", ""));
+        emissive_sampler = AssetLoader<Sampler>::get(data.value("emissive_sampler", ""));
+
+        alphaThreshold = data.value("alphaThreshold", 0.0f);
     }
 
 }

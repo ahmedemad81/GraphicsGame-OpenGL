@@ -4,10 +4,10 @@
     {
         "title":"Default Game Window",
         "size":{
-            "width":1280,
-            "height":720
+            "width":1920,
+            "height":1080
         },
-        "fullscreen": false
+        "fullscreen": true
     },
     "scene": {
         "renderer":{
@@ -30,13 +30,17 @@
                 "grass": "assets/textures/grass_ground_d.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
-                "monkey": "assets/textures/monkey.png"
+                "monkey": "assets/textures/monkey.png",
+                "sword": "assets/textures/sword.png",
+                "monster": "assets/textures/monster.png"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
                 "monkey": "assets/models/monkey.obj",
                 "plane": "assets/models/plane.obj",
-                "sphere": "assets/models/sphere.obj"
+                "sphere": "assets/models/sphere.obj",
+                "sword" : "assets/models/sword.obj",
+                "monster": "assets/models/monster.obj"
             },
             "samplers":{
                 "default":{},
@@ -110,6 +114,36 @@
                     "texture": "monkey",
                     "sampler": "default"
                 },
+                "monster":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "monster",
+                    "sampler": "default"
+                },
+                "sword":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "sword",
+                    "sampler": "default"
+                },
                 "moon":{
                     "type": "textured",
                     "shader": "textured",
@@ -140,14 +174,15 @@
                 ],
                 "children": [
                     {
+                        "name": "sword",
                         "position": [1, -1, -1],
                         "rotation": [45, 45, 0],
-                        "scale": [0.1, 0.1, 1.0],
+                        "scale": [0.1,0.2, 0.05],
                         "components": [
                             {
                                 "type": "Mesh Renderer",
-                                "mesh": "cube",
-                                "material": "metal"
+                                "mesh": "sword",
+                                "material": "sword"
                             }
                         ]
                     }
@@ -155,11 +190,12 @@
             },
             {
                 "rotation": [-45, 0, 0],
+                "scale": [0.5, 0.5, 0.5],
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "monkey",
-                        "material": "monkey"
+                        "mesh": "monster",
+                        "material": "monster"
                     },
                     {
                         "type": "Movement",

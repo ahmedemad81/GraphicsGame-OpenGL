@@ -12,7 +12,7 @@
     "scene": {
         "renderer":{
             "sky": "assets/textures/planets_sky.jpg",
-            "postprocess": "assets/shaders/postprocess/vignette.frag"
+            "postprocess": "assets/shaders/postprocess/reddish-noise.frag"
         },
         "renderer_injured": {
             "sky": "assets/textures/planets_sky.jpg",

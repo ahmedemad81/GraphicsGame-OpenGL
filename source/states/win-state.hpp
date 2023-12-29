@@ -9,6 +9,7 @@
 
 #include <functional>
 #include <array>
+#include <systems/collider.hpp>
 
 // This struct is used to store the location and size of a button and the code it should execute when clicked
 struct Button_win {
@@ -111,6 +112,8 @@ class Winstate: public our::State {
     void onDraw(double deltaTime) override {
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
+
+        health = 2 ; // Reset health to 2
 
         if(keyboard.justPressed(GLFW_KEY_SPACE)){
             // If the space key is pressed in this frame, go to the play state

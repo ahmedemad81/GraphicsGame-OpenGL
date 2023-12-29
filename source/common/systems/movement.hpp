@@ -23,12 +23,35 @@ namespace our
             for(auto entity : world->getEntities()){
                 // Get the movement component if it exists
                 MovementComponent* movement = entity->getComponent<MovementComponent>();
-                // If the movement component exists
-                if(movement){
-                    // Change the position and rotation based on the linear & angular velocity and delta time.
-                    entity->localTransform.position += deltaTime * movement->linearVelocity;
-                    entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+
+                // Player Position
+                glm::vec3 playerPos = {0, 0, 10};
+
+                for (auto entity : world->getEntities())
+                {
+                    if (entity->name == "player")
+                    {
+                        playerPos = entity->localTransform.position;
+                    }
                 }
+
+                // Move Monsters in the direction of the player
+                if (movement)
+                {
+                    if (entity->name == "monster")
+                    {
+                        // Get the direction from the zombie to the player
+                        auto direction = (playerPos - entity->localTransform.position);
+                        // Normalize the direction
+                        direction = normalize(direction);
+                        // Move the zombie in the direction of the player
+                        entity->localTransform.position += deltaTime * direction;
+                        // Rotate the zombie to look at the player
+                        auto angle = atan2(direction.x, direction.z);
+                        entity->localTransform.rotation = glm::vec3(0, angle, 0);
+                    }
+                }
+
             }
         }
 

@@ -2,7 +2,7 @@
     "start-scene": "menu",
     "window":
     {
-        "title":"Default Game Window",
+        "title":"Xenophobia",
         "size":{
             "width":1280,
             "height":720
@@ -44,7 +44,8 @@
                 "plane": "assets/models/plane.obj",
                 "sphere": "assets/models/sphere.obj",
                 "sword" : "assets/models/sword.obj",
-                "monster": "assets/models/monster.obj"
+                "monster": "assets/models/monster.obj",
+                "skull": "assets/models/skull.obj"
             },
             "samplers":{
                 "default":{},
@@ -178,7 +179,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.2
+                        "Radius": 0.3
                     }
                 ],
                 "children": [
@@ -186,7 +187,7 @@
                         "name": "sword",
                         "position": [1, -1, -1],
                         "rotation": [45, 45, 0],
-                        "scale": [0.05, 0.15, 0.02],
+                        "scale": [0.1, 0.2, 0.03],
                         "components": [
                             {
                                 "type": "Mesh Renderer",
@@ -195,7 +196,7 @@
                             },
                             {
                                 "type": "Collider",
-                                "Radius": 0.1
+                                "Radius": 0.07
                             }
                         ]
                     }
@@ -245,6 +246,12 @@
                     }
                 ]
             },
+            // {
+            //     "name": "skull",
+            //     "position": [0, -0.7, 3],
+            //     "rotation": [0, 0, 0],
+            //     "scale": [1, 1, 1]
+            // },
             {
                 "position": [0, -1, 0],
                 "rotation": [-90, 0, 0],

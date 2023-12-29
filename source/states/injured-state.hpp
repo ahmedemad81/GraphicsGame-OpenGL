@@ -42,6 +42,9 @@ class Injuredstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
+
+        health = 1; // Set health to 1
+
         // We update the collider system
         colliderSystem.update(&world, (float)deltaTime);
         // And finally we use the renderer system to draw the scene

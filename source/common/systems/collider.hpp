@@ -94,7 +94,6 @@ namespace our
                             // {
                             //     if (health == 2)
                             //     {
-                            //         cout<<"health:ahme 34d "<<health<<endl;
                             //         health -= 1;
 
                             //         world->markForRemoval(collider1->getOwner());
@@ -103,7 +102,6 @@ namespace our
                             //     }
                             //     else if (health == 1)
                             //     {
-                            //         cout<<"health: 453 hla"<<health<<endl;
                             //         app->changeState("lose"); // change state to lose
                             //     }
                                 

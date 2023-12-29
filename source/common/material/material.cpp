@@ -59,6 +59,12 @@ namespace our {
         LitMaterial::setup();
 
         /*TODO (req Light): SEND NEEDED DATA TO SHADER*/
+        shader->set("material.diffuse", glm::vec3(albedo_tint.r, albedo_tint.g, albedo_tint.b));
+        shader->set("material.specular", glm::vec3(specular.r, specular.g, specular.b));
+        shader->set("material.ambient", glm::vec3(ambient.r, ambient.g, ambient.b));
+        shader->set("material.emissive", glm::vec3(emissive_tint.r, emissive_tint.g, emissive_tint.b));
+        shader->set("material.shininess", shininess);
+        shader->set("alpha", ambient.a);
     }
 
     void LitTintedMaterial::deserialize(const nlohmann::json& data)
@@ -131,12 +137,109 @@ namespace our {
         LitTintedMaterial::setup();
 
         /*TODO (req Light): SEND NEEDED DATA TO SHADER*/
+        shader->set("tex_material.roughness_range", roughness_range);
+        shader->set("tex_material.albedo_tint", glm::vec3(albedo_tint.r, albedo_tint.g, albedo_tint.b));
+        shader->set("tex_material.specular_tint", glm::vec3(specular_tint.r, specular_tint.g, specular_tint.b));
+        shader->set("tex_material.emissive_tint", glm::vec3(emissive_tint.r, emissive_tint.g, emissive_tint.b));
+        shader->set("alphaThreshold", alphaThreshold); // set the "alphaThreshold" uniform to the value in the member variable alphaThreshold
+        //Specifies which texture unit to make active
+        glActiveTexture(GL_TEXTURE0);
+        if (albedo_map)
+        {
+            albedo_map->bind(); // check if the texture is not null then bind it
+        }
+        else
+        {
+            Texture2D::unbind(); //if null unbind
+        }
+        if (albedo_sampler)
+        {
+            albedo_sampler->bind(0); // check if sampler is not null then bind it
+        }
+        else
+        {
+            Sampler::unbind(0); //if null unbind
+        }
+        shader->set("tex_material.albedo_map", 0);
+        //Specifies which texture unit to make active
+        glActiveTexture(GL_TEXTURE0 + 1);
+        if (specular_map)
+        {
+            specular_map->bind(); // check if the texture is not null then bind it
+        }
+        else
+        {
+            Texture2D::unbind(); //if null unbind
+        }
+        if (specular_sampler)
+        {
+            specular_sampler->bind(1); // check if sampler is not null then bind it
+        }
+        else
+        {
+            Sampler::unbind(1); //if null unbind
+        }
+        shader->set("tex_material.specular_map", 1);
+        //Specifies which texture unit to make active
+        glActiveTexture(GL_TEXTURE0 + 2);
+        if (ambient_occlusion_map)
+        {
+            ambient_occlusion_map->bind(); // check if the texture is not null then bind it
+        }
+        else
+        {
+            Texture2D::unbind(); //if null unbind
+        }
+        if (ambient_occlusion_sampler)
+            ambient_occlusion_sampler->bind(2); // check if sampler is not null then bind it
+        else
+            Sampler::unbind(2); //if null unbind
+        shader->set("tex_material.ambient_occlusion_map", 2);
+        //Specifies which texture unit to make active
+        glActiveTexture(GL_TEXTURE0 + 3);
+        if (roughness_map)
+        {
+            roughness_map->bind(); // check if the texture is not null then bind it
+        }
+        else
+            Texture2D::unbind(); //if null unbind
+        if (roughness_sampler)
+            roughness_sampler->bind(3); // check if sampler is not null then bind it
+        else
+            Sampler::unbind(3); //if null unbind
+        shader->set("tex_material.roughness_map", 3);
+        //Specifies which texture unit to make active
+        glActiveTexture(GL_TEXTURE0 + 4);
+        if (emissive_map)
+        {
+            emissive_map->bind(); // check if the texture is not null then bind it
+        }
+        else
+            Texture2D::unbind(); //if null unbind
+        if (emissive_sampler)
+            emissive_sampler->bind(4); // check if sampler is not null then bind it
+        else
+            Sampler::unbind(4); //if null unbind
+        shader->set("tex_material.emissive_map", 4);
+        //Specifies which texture unit to make active
+        glActiveTexture(GL_TEXTURE0 + 5);
+        if (texture)
+            texture->bind(); // check if the texture is not null then bind it
+        else
+            Texture2D::unbind(); //if null unbind
+        if (sampler)
+            sampler->bind(5); // check if sampler is not null then bind it
+        else
+            Sampler::unbind(5); //if null unbind
+        shader->set("tex", 5); // send the unit number to the uniform variable "tex"
+
     }
 
     void LitTexturedMaterial::deserialize(const nlohmann::json& data)
     {
         LitTintedMaterial::deserialize(data);
-        if(!data.is_object()) return;
+        if (!data.is_object())
+            return;
 
         albedo_map = AssetLoader<Texture2D>::get(data.value("albedo_map", ""));
         albedo_sampler = AssetLoader<Sampler>::get(data.value("albedo_sampler", ""));
@@ -144,11 +247,13 @@ namespace our {
         specular_sampler = AssetLoader<Sampler>::get(data.value("specular_sampler", ""));
         roughness_map = AssetLoader<Texture2D>::get(data.value("roughness_map", ""));
         roughness_sampler = AssetLoader<Sampler>::get(data.value("roughness_sampler", ""));
-        roughness_range = data.value("roughness_range", glm::vec2(0.0f, 1.0f)); 
+        roughness_range = data.value("roughness_range", glm::vec2(0.0f, 1.0f));
         ambient_occlusion_map = AssetLoader<Texture2D>::get(data.value("ambient_occlusion_map", ""));
-        ambient_occlusion_sampler = AssetLoader<Sampler>::get(data.value("ambient_occlusion_sampler", ""));      
+        ambient_occlusion_sampler = AssetLoader<Sampler>::get(data.value("ambient_occlusion_sampler", ""));
         emissive_map = AssetLoader<Texture2D>::get(data.value("emissive_map", ""));
         emissive_sampler = AssetLoader<Sampler>::get(data.value("emissive_sampler", ""));
+        texture = AssetLoader<Texture2D>::get(data.value("texture", ""));
+        sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
 
         alphaThreshold = data.value("alphaThreshold", 0.0f);
     }

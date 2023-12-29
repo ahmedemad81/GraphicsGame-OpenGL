@@ -44,7 +44,7 @@ namespace our
         // This function does 2 things: setup the pipeline state and set the shader program to be used
         virtual void setup() const;
         // This function read a material from a json object
-        virtual void deserialize(const nlohmann::json &data);
+        virtual void deserialize(const nlohmann::json& data);
     };
 
     // This material adds a uniform for a tint (a color that will be sent to the shader)
@@ -66,7 +66,7 @@ namespace our
         glm::vec4 emissive_tint;
 
         void setup() const override;
-        void deserialize(const nlohmann::json &data) override;
+        void deserialize(const nlohmann::json& data) override;
     };
     // This material adds two uniforms (besides the tint from Tinted Material)
     // The uniforms are:
@@ -85,22 +85,24 @@ namespace our
     };
     class LitTexturedMaterial : public LitTintedMaterial
     {
-        Texture2D *albedo_map;
-        Sampler *albedo_sampler;
-        Texture2D *specular_map;
-        Sampler *specular_sampler;
-        Texture2D *roughness_map;
-        Sampler *roughness_sampler;
-        glm::vec2 roughness_range;
-        Texture2D *ambient_occlusion_map;
-        Sampler *ambient_occlusion_sampler;
-        Texture2D *emissive_map;
-        Sampler *emissive_sampler;
+        Texture2D* texture;
+        Sampler* sampler;
+        Texture2D* albedo_map;
+        Sampler* albedo_sampler;
+        Texture2D* specular_map;
+        Sampler* specular_sampler;
+        Texture2D* roughness_map;
+        Sampler* roughness_sampler;
+        glm::vec2 roughness_range; 
+        Texture2D* ambient_occlusion_map; 
+        Sampler* ambient_occlusion_sampler;          
+        Texture2D* emissive_map;
+        Sampler* emissive_sampler;
 
         float alphaThreshold;
 
         void setup() const override;
-        void deserialize(const nlohmann::json &data) override;
+        void deserialize(const nlohmann::json& data) override;
     };
 
     // This function returns a new material instance based on the given type

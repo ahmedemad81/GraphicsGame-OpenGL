@@ -162,6 +162,8 @@ namespace our
         CameraComponent *camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
+        //TODO: (Light) clear the list of lights
+        lights.clear();
         for (auto entity : world->getEntities())
         {
             // If we hadn't found a camera yet, we look for a camera in this entity
@@ -186,6 +188,12 @@ namespace our
                     // Otherwise, we add it to the opaque command list
                     opaqueCommands.push_back(command);
                 }
+            }
+            //TODO: (Light) push light components into the list of lights
+            // fill the vector of lights with the light components to be used in the shaders
+            if (auto light = entity->getComponent<LightComponent>(); light)
+            {
+                lights.push_back(light);
             }
         }
 
@@ -247,11 +255,64 @@ namespace our
 
         // TODO: (Req 9) Draw all the opaque commands
         //  Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
+        glm::vec3 cameraPosition = camera->getOwner()->localTransform.position;
         for (unsigned long int i = 0; i < opaqueCommands.size(); i++)
         {
             opaqueCommands[i].material->transparent = false;
             opaqueCommands[i].material->setup();
+
+            //TODO: (Light) SEND THE NEEDED TRANSFORMS TO THE SHADER FOR LIGHTING SUPPORT
+            // send the needed uniforms for the shaders
             opaqueCommands[i].material->shader->set("transform", VP * opaqueCommands[i].localToWorld);
+            // pass mat4 that transforms local space to world space to calculate world vector
+            opaqueCommands[i].material->shader->set("objectToWorld", opaqueCommands[i].localToWorld);
+            // mat4 that represents the object to world inverse transpose for the normal
+            opaqueCommands[i].material->shader->set("objectToInvTranspose", glm::transpose(glm::inverse(opaqueCommands[i].localToWorld)));
+            // send camera position for the view vector
+            opaqueCommands[i].material->shader->set("cameraPosition", cameraPosition);
+
+            //TODO: (Light) SEND THE LIST OF LIGHTS TO THE SHADER FOR LIGHTING SUPPORT
+            // loop over all light sources and pass their data to the shaders
+            for (int j = 0; j < lights.size(); j++)
+            {
+                // diffuse, specular and ambient for all light sources
+                opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "diffuse", lights[j]->diffuse);
+                opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "specular", lights[j]->specular);
+                opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "ambient", lights[j]->ambient);
+                // passing the light type point, directional or spot
+                opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "type", static_cast<int>(lights[j]->lightType));
+
+                // according to the light type pass the remaining parameters
+                switch (lights[j]->lightType)
+                {
+                case LightType::DIRECTIONAL:
+                    // in case of directional light pass the light's direction
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "direction", glm::normalize(lights[j]->getOwner()->localTransform.rotation));
+                    break;
+                case LightType::POINT:
+                    // in case of point light pass its positions
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "position", lights[j]->getOwner()->localTransform.position);
+                    // and the attenuation factors
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_constant", lights[j]->attenuation_constant);
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_linear", lights[j]->attenuation_linear);
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_quadratic", lights[j]->attenuation_quadratic);
+                    break;
+                case LightType::SPOT:
+                    // in case of spot light pass its position and direction
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "position", lights[j]->getOwner()->localTransform.position);
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "direction", glm::normalize(lights[j]->getOwner()->localTransform.rotation));
+                    // its attenuation factors
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_constant", lights[j]->attenuation_constant);
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_linear", lights[j]->attenuation_linear);
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_quadratic", lights[j]->attenuation_quadratic);
+                    // and cone angles
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "inner_angle", lights[j]->inner_angle);
+                    opaqueCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "outer_angle", lights[j]->outer_angle);
+                    break;
+                }
+            }
+            // lastly pass the light count to be used in shaders when looping over the lights
+            opaqueCommands[i].material->shader->set("light_count", (GLint)lights.size());
             opaqueCommands[i].mesh->draw();
         }
 
@@ -293,7 +354,58 @@ namespace our
         {
             transparentCommands[i].material->transparent = true;
             transparentCommands[i].material->setup();
+            //TODO: (Light) SEND THE NEEDED TRANSFORMS TO THE SHADER FOR LIGHTING SUPPORT
+            // send the needed uniforms for the shaders
             transparentCommands[i].material->shader->set("transform", VP * transparentCommands[i].localToWorld);
+            // pass mat4 that transforms local space to world space to calculate world vector
+            transparentCommands[i].material->shader->set("objectToWorld", transparentCommands[i].localToWorld);
+            // mat4 that represents the object to world inverse transpose for the normal
+            transparentCommands[i].material->shader->set("objectToInvTranspose", glm::transpose(glm::inverse(transparentCommands[i].localToWorld)));
+            // send camera position for the view vector
+            transparentCommands[i].material->shader->set("cameraPosition", cameraPosition);
+
+            //TODO: (Light) SEND THE LIST OF LIGHTS TO THE SHADER FOR LIGHTING SUPPORT 
+            // loop over all light sources and pass their data to the shaders
+            for (int j = 0; j < lights.size(); j++)
+            {
+                // diffuse, specular and ambient for all light sources
+                transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "diffuse", lights[j]->diffuse);
+                transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "specular", lights[j]->specular);
+                transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "ambient", lights[j]->ambient);
+                // passing the light type point, directional or spot
+                transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "type", static_cast<int>(lights[j]->lightType));
+
+                // according to the light type pass the remaining parameters
+                switch (lights[j]->lightType)
+                {
+                case LightType::DIRECTIONAL:
+                    // in case of directional light pass the light's direction
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "direction", glm::normalize(lights[j]->getOwner()->localTransform.rotation));
+                    break;
+                case LightType::POINT:
+                    // in case of point light pass its positions
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "position", lights[j]->getOwner()->localTransform.position);
+                    // and the attenuation factors
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_constant", lights[j]->attenuation_constant);
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_linear", lights[j]->attenuation_linear);
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_quadratic", lights[j]->attenuation_quadratic);
+                    break;
+                case LightType::SPOT:
+                    // in case of spot light pass its position and direction
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "position", lights[j]->getOwner()->localTransform.position);
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "direction", glm::normalize(lights[j]->getOwner()->localTransform.rotation));
+                    // its attenuation factors
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_constant", lights[j]->attenuation_constant);
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_linear", lights[j]->attenuation_linear);
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "attenuation_quadratic", lights[j]->attenuation_quadratic);
+                    // and cone angles
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "inner_angle", lights[j]->inner_angle);
+                    transparentCommands[i].material->shader->set("lights[" + std::to_string(j) + "]." + "outer_angle", lights[j]->outer_angle);
+                    break;
+                }
+            }
+            // lastly pass the light count to be used in shaders when looping over the lights
+            transparentCommands[i].material->shader->set("light_count", (GLint)lights.size());
             transparentCommands[i].mesh->draw();
         }
 

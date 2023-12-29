@@ -62,7 +62,7 @@ namespace our {
         // Perspective camera depends on the fovY value as it assumes that the objects are closer to the camera will seem larger than objects far away (more realistic/ human eye)
          if(cameraType == CameraType::ORTHOGRAPHIC){
             float orthoWidth = (float)orthoHeight * aspectRatio;
-            return glm::ortho(-orthoWidth/2, orthoWidth/2, -orthoHeight/2, orthoHeight/2);
+            return glm::ortho(-orthoWidth/2, orthoWidth/2, -orthoHeight/2, orthoHeight/2, near, far);
         } else{
             // if (cameraType == CameraType::PERSPECTIVE)
             return glm::perspective(fovY, aspectRatio, near, far);

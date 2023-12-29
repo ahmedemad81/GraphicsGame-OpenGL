@@ -24,8 +24,7 @@ namespace our {
     }
 
     void TintedMaterial::setup() const {
-        //DONE (Req 7) Write this function
-        
+        //DONE (Req 7) Write this function        
         // Call the setup function of the parent class
         Material::setup();               
         

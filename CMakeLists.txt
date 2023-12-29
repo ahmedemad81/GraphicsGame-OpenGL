@@ -86,6 +86,10 @@ set(COMMON_SOURCES
         source/common/systems/forward-renderer.cpp
         source/common/systems/free-camera-controller.hpp
         source/common/systems/movement.hpp
+
+        source/common/components/collider.hpp
+        source/common/components/collider.cpp
+        source/common/systems/collider.hpp
 )
 
 # Define the directories in which to search for the included headers
@@ -115,6 +119,8 @@ set(STATES_SOURCES
         source/states/material-test-state.hpp
         source/states/entity-test-state.hpp
         source/states/renderer-test-state.hpp
+        source/states/win-state.hpp
+        source/states/lose-state.hpp
 )
 
 # For each example, we add an executable target

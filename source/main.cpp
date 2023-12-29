@@ -16,6 +16,9 @@
 #include "states/material-test-state.hpp"
 #include "states/entity-test-state.hpp"
 #include "states/renderer-test-state.hpp"
+#include "states/injured-state.hpp"
+#include "states/win-state.hpp"
+#include "states/lose-state.hpp"
 
 int main(int argc, char** argv) {
     
@@ -44,6 +47,9 @@ int main(int argc, char** argv) {
     // Register all the states of the project in the application
     app.registerState<Menustate>("menu");
     app.registerState<Playstate>("play");
+    app.registerState<Injuredstate>("injured");
+    app.registerState<Winstate>("win"); 
+    app.registerState<Losestate>("lose");
     app.registerState<ShaderTestState>("shader-test");
     app.registerState<MeshTestState>("mesh-test");
     app.registerState<TransformTestState>("transform-test");

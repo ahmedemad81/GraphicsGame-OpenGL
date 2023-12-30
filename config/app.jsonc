@@ -44,7 +44,8 @@
                 "glass": "assets/textures/glass-panels.png",
                 "monkey": "assets/textures/monkey.png",
                 "sword": "assets/textures/sword.png",
-                "monster": "assets/textures/monster.png"
+                "monster": "assets/textures/monster.png",
+                "skull": "assets/textures/skull.jpg"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
@@ -53,7 +54,7 @@
                 "sphere": "assets/models/sphere.obj",
                 "sword" : "assets/models/sword.obj",
                 "monster": "assets/models/monster.obj",
-                // "skull": "assets/models/skull.obj",
+                "skull": "assets/models/skull.obj",
                 "smooth_sphere": "assets/models/smooth-sphere.obj"
             },
             "samplers":{
@@ -199,6 +200,21 @@
                     "tint": [1, 1, 1, 1],
                     "texture": "moon",
                     "sampler": "default"
+                },
+                "skull":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "skull",
+                    "sampler": "default"
                 }
             }
         },
@@ -282,12 +298,28 @@
                     }
                 ]
             },
-            // {
-            //     "name": "skull",
-            //     "position": [0, -0.7, 3],
-            //     "rotation": [0, 0, 0],
-            //     "scale": [1, 1, 1]
-            // },
+            {
+                "name": "skull",
+                "position": [0, -0.7, 5],
+                "rotation": [0, 0, 0],
+                "scale": [0.08, 0.08, 0.08],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.5
+                    }
+                ]
+            },
             {
                 "position": [0, -1, 0],
                 "rotation": [-90, 0, 0],

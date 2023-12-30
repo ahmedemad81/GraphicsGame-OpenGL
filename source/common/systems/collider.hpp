@@ -123,6 +123,16 @@ namespace our
                             }
                         }
 
+                        // If player collides with win plane , can't pass it z-axis
+                        if (collider1_name == "player" && collider2_name == "win_wall")
+                        {
+                            // Must be close distance in the z-axis
+                            if (player->localTransform.position.z - 0.3 <= collider2->getOwner()->localTransform.position.z)
+                            {
+                                player->localTransform.position.z += 0.6f;
+                            }
+                        }
+
                         // If player left the plane in the x-axis, player loses
                         if (collider1_name == "player" && collider2_name == "plane")
                         {

@@ -525,6 +525,10 @@
                         "type": "Mesh Renderer",
                         "mesh": "plane",
                         "material": "dreamy_wall"
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.5
                     }
                 ]
             },

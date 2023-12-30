@@ -8,7 +8,7 @@
 
 namespace our
 {
-    
+
     // Reads light parameters from the given json object
     void LightComponent::deserialize(const nlohmann::json& data)
     {

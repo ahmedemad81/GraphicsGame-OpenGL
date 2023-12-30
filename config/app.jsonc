@@ -27,6 +27,14 @@
                 "textured":{
                     "vs":"assets/shaders/textured.vert",
                     "fs":"assets/shaders/textured.frag"
+                },
+                "litTextured": {
+                    "vs": "assets/shaders/lit_texture.vert",
+                    "fs": "assets/shaders/lit_texture.frag"
+                },
+                "litTinted": {
+                    "vs": "assets/shaders/lit_tinted.vert",
+                    "fs": "assets/shaders/lit_tinted.frag"
                 }
             },
             "textures":{
@@ -44,8 +52,9 @@
                 "plane": "assets/models/plane.obj",
                 "sphere": "assets/models/sphere.obj",
                 "sword" : "assets/models/sword.obj",
-                "monster": "assets/models/monster.obj"
-                // "skull": "assets/models/skull.obj"
+                "monster": "assets/models/monster.obj",
+                // "skull": "assets/models/skull.obj",
+                "smooth_sphere": "assets/models/smooth-sphere.obj"
             },
             "samplers":{
                 "default":{},
@@ -93,16 +102,24 @@
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
-                        "faceCulling":{
+                        "faceCulling": {
                             "enabled": false
                         },
-                        "depthTesting":{
+                        "depthTesting": {
                             "enabled": true
                         }
                     },
                     "tint": [1, 1, 1, 1],
                     "texture": "ground",
-                    "sampler": "default"
+                    "sampler": "default",
+                    "ambient": [1, 1, 0, 1],
+                    "shininess": 4.0,
+                    "albedo_map": "albedo",
+                    "roughness_map": "roughness",
+                    "specular_map": "specular",
+                    "albedo_sampler": "default",
+                    "roughness_sampler": "default",
+                    "specular_sampler": "default"    
                 },
                 "monkey":{
                     "type": "textured",
@@ -135,19 +152,38 @@
                     "sampler": "default"
                 },
                 "sword":{
-                    "type": "textured",
-                    "shader": "textured",
+                    "type": "tinted_lit",
+                    "shader": "litTinted",
                     "pipelineState": {
-                        "faceCulling":{
+                        "faceCulling": {
                             "enabled": false
                         },
-                        "depthTesting":{
+                        "depthTesting": {
                             "enabled": true
                         }
                     },
                     "tint": [1, 1, 1, 1],
+                    "ambient": [0, 0, 1, 1],
+                    "shininess": 30.0,
                     "texture": "sword",
                     "sampler": "default"
+                },
+                "TintedWall": {
+                    "type": "tinted_lit",
+                    "shader": "litTinted",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "ambient": [0, 1, 1, 1],
+                    "shininess": 10.0,
+                    "specular":[0.8,0.8,0.8,0.8],
+                    "diffuse":[0.5,0.5,0.5,0.5]
                 },
                 "moon":{
                     "type": "textured",
@@ -264,66 +300,83 @@
                     }
                 ]
             },
-            // {
-            //     "position": [0, 1, 2],
-            //     "rotation": [0, 0, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "glass"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [0, 1, -2],
-            //     "rotation": [0, 0, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "glass"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [2, 1, 0],
-            //     "rotation": [0, 90, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "glass"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [-2, 1, 0],
-            //     "rotation": [0, 90, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "glass"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "position": [0, 3, 0],
-            //     "rotation": [90, 0, 0],
-            //     "scale": [2, 2, 2],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "plane",
-            //             "material": "glass"
-            //         }
-            //     ]
-            // },
+            {
+                "position": [0, 8, 4],
+                "rotation": [-60, -70, -50],
+                //"rotation": [0, -180, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [{
+                        "type": "Light",
+                        "ambient": [1, 1, 1, 1],
+                        "lightType": "directional"
+                        // "inner_angle": 1.58,
+                        // "outer_angle": 4.13,
+                        //"attenuation_quadratic": 0.2
+                        //"lightType": "point"
+                        //"lightType": "spot"
+
+                    },
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "smooth_sphere",
+                        "material": "metal"
+                    }
+                ]
+            },
+            {
+                "position": [-10, 5, -20],
+                "rotation": [-60, 210, -50],
+                //"rotation": [0, -180, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [{
+                        "type": "Light",
+                        "ambient": [1, 1, 1, 1],
+                        //"lightType": "directional"
+                        //"lightType": "point"
+                        "lightType": "spot",
+                        "inner_angle": 1.58,
+                        "outer_angle": 4.13,
+                        "attenuation_quadratic": 0.1
+                    },
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "smooth_sphere",
+                        "material": "metal"
+                    }
+                ]
+            },
+            {
+                "position": [-1, 2, -22],
+                "rotation": [-60, 210, -50],
+                //"rotation": [0, -180, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [{
+                        "type": "Light",
+                        "ambient": [0, 1, 0, 1],
+                        //"lightType": "directional"
+                        "lightType": "point"
+                        //"lightType": "spot",
+                        // "inner_angle": 1.58,
+                        // "outer_angle": 4.13,
+                        // "attenuation_quadratic": 0.2
+                    },
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "smooth_sphere",
+                        "material": "metal"
+                    }
+                ]
+            },
+            {
+                "position": [3, -1, -24],
+                "rotation": [0, 0, 0],
+                "scale": [7, 10, 1],
+                "components": [{
+                    "type": "Mesh Renderer",
+                    "mesh": "plane",
+                    "material": "TintedWall"
+                }]
+            },
             {
                 "position": [0, 10, 0],
                 "rotation": [45, 45, 0],

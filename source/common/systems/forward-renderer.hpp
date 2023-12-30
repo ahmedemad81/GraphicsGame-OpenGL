@@ -9,6 +9,7 @@
 #include <glad/gl.h>
 #include <vector>
 #include <algorithm>
+#include <utility>
 
 namespace our
 {
@@ -34,10 +35,10 @@ namespace our
         // We define them here (instead of being local to the "render" function) as an optimization to prevent reallocating them every frame
         std::vector<RenderCommand> opaqueCommands;
         std::vector<RenderCommand> transparentCommands;
+        //TODO: (Light) Add List of lights in the scene
         //List of lights in the scene
         std::vector<LightComponent*> lights;
-
-
+        //std::vector<std::pair<glm::vec3, glm::vec3>> lights_position_direction;
         // Objects used for rendering a skybox
         Mesh* skySphere;
         TexturedMaterial* skyMaterial;

@@ -1,9 +1,11 @@
 #pragma once
 
 #include "../ecs/component.hpp"
+
 #include <glm/glm.hpp>
 
-//TODO: (Light) Implement light component hpp file
+//TODO: (Light) Implement light component hpp
+
 namespace our {
 
     // An enum that defines the types of lights
@@ -23,7 +25,7 @@ namespace our {
         glm::vec3 specular;
         glm::vec3 ambient;
 
-        //attenuation constants for point and spot lights
+        //attenuation costants for point and spot lights
         float attenuation_constant;
         float attenuation_linear;
         float attenuation_quadratic;

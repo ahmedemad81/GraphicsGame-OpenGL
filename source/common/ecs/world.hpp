@@ -60,6 +60,7 @@ namespace our {
                 entities.erase(entity);         // Remove the entity from the entities set
                 delete entity;                  // Delete the entity
             }
+            markedForRemoval.clear();
         }
 
         //This deletes all entities in the world

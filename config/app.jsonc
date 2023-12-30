@@ -154,6 +154,7 @@
                     "ambient": [1, 1, 0, 1],
                     "shininess": 4.0
                 },
+                
                 "sword":{
                     "type": "tinted_lit",
                     "shader": "litTinted",
@@ -304,7 +305,73 @@
             },
             {
                 "name": "monster",
-                "position": [3, -0.7, -5],
+                "position": [5, -0.7, -15],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "monster",
+                        "material": "monster"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.5
+                    }
+                ]
+            },
+            {
+                "name": "monster",
+                "position": [-5, -0.7, -20],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "monster",
+                        "material": "monster"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.5
+                    }
+                ]
+            },
+            {
+                "name": "monster",
+                "position": [-5, -0.7, -10],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "monster",
+                        "material": "monster"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.5
+                    }
+                ]
+            },
+            {
+                "name": "monster",
+                "position": [9, -0.7, -20],
                 "rotation": [0, 0, 0],
                 "scale": [0.1, 0.1, 0.1],
                 "components": [
@@ -350,7 +417,7 @@
                 "name": "skull",
                 "position": [3, -0.2, 5],
                 "rotation": [0, 0, 0],
-                "scale": [0.03, 0.03, 0.03],
+                "scale": [0.05, 0.05, 0.05],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -372,7 +439,7 @@
                 "name": "skull",
                 "position": [-3, -0.2, 5],
                 "rotation": [0, 0, 0],
-                "scale": [0.03, 0.03, 0.03],
+                "scale": [0.05, 0.05, 0.05],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -394,7 +461,141 @@
                 "name": "skull",
                 "position": [0, -0.2, -5],
                 "rotation": [0, 0, 0],
-                "scale": [0.03, 0.03, 0.03],
+                "scale": [0.05, 0.05, 0.05],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
+                    }
+                ]
+            },
+    
+            {
+                "name": "skull",
+                "position": [3, 3, -10],
+                "rotation": [0, 0, 0],
+                "scale": [0.05, 0.05, 0.05],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
+                    }
+                ]
+            },
+            {
+                "name": "skull",
+                "position": [3, -5, -5],
+                "rotation": [0, 0, 0],
+                "scale": [0.05, 0.05, 0.05],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
+                    }
+                ]
+            },
+    
+            {
+                "name": "skull",
+                "position": [-5, 1, -5],
+                "rotation": [0, 0, 0],
+                "scale": [0.05, 0.05, 0.05],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
+                    }
+                ]
+            },
+            {
+                "name": "skull",
+                "position": [-5, 1, 0],
+                "rotation": [0, 0, 0],
+                "scale": [0.05, 0.05, 0.05],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
+                    }
+                ]
+            },
+            {
+                "name": "skull",
+                "position": [-5, 1, -20],
+                "rotation": [0, 0, 0],
+                "scale": [0.05, 0.05, 0.05],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
+                    }
+                ]
+            },
+            {
+                "name": "skull",
+                "position": [5, 1, 0],
+                "rotation": [0, 0, 0],
+                "scale": [0.05, 0.05, 0.05],
                 "components": [
                     {
                         "type": "Mesh Renderer",

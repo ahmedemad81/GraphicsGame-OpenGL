@@ -10,7 +10,7 @@
 #include "../application.hpp"
 
 
-int health = 2;
+
 
 using namespace std;
 namespace our

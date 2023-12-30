@@ -62,6 +62,10 @@ class TransformTestState: public our::State {
         }
     }
 
+    std ::string getName() override {
+        return "Transform Test";
+    }
+
     void onDraw(double deltaTime) override {
         glClear(GL_COLOR_BUFFER_BIT);
         shader->use();

@@ -50,6 +50,10 @@ class LightTestState: public our::State {
         }
     }
 
+    std::string getName() override {
+        return "light-test";
+    }
+
     void onDestroy() override {
         // Don't forget to destroy the renderer
         renderer.destroy();

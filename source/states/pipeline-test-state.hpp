@@ -88,6 +88,10 @@ class PipelineTestState: public our::State {
         }
     }
 
+    std::string getName() override {
+        return "Pipeline Test";
+    }
+
     void onDestroy() override {
         delete shader;
         delete mesh;

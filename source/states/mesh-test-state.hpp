@@ -51,6 +51,10 @@ class MeshTestState: public our::State {
         }
     }
 
+    std::string getName() override {
+        return "Mesh Test";
+    }
+
     void onDraw(double deltaTime) override {
         // Clear the screen color
         glClear(GL_COLOR_BUFFER_BIT);

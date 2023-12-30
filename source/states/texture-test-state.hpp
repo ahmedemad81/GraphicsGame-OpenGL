@@ -51,6 +51,10 @@ class TextureTestState: public our::State {
         mesh->draw();
     }
 
+    std:: string getName() override {
+        return "Texture Test";
+    }
+
     void onDestroy() override {
         delete shader;
         delete mesh;

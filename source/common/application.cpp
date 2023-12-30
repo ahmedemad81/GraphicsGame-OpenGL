@@ -24,6 +24,8 @@
 
 #include "texture/screenshot.hpp"
 
+int health = 2; // Global variable to store health
+
 std::string default_screenshot_filepath() {
     std::stringstream stream;
     auto time = std::time(nullptr);
@@ -252,6 +254,10 @@ int our::Application::run(int run_for_frames) {
 
         if(currentState) currentState->onImmediateGui(); // Call to run any required Immediate GUI.
 
+
+        // Create a window to display the score only if the game is running
+        if (currentState->getName() == "play" || currentState->getName() == "injured"  )
+        {
         ImGui::SetNextWindowSize(ImVec2(380, 100));
         ImGui::Begin(" ", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
         ImGui::SetWindowPos(" ", ImVec2(0, 20));
@@ -269,12 +275,13 @@ int our::Application::run(int run_for_frames) {
         // Display the score
         ImGui::PushFont(font);
         std::string l1 = "Health: ";
-        std::string l2 = std::to_string(2);
+        std::string l2 = std::to_string(health);
         std::string totalLine = l1 + l2;
         ImGui::Text(totalLine.c_str());
         ImGui::PopFont();
 
         ImGui::End();
+        }
 
         // If ImGui is using the mouse or keyboard, then we don't want the captured events to affect our keyboard and mouse objects.
         // For example, if you're focusing on an input and writing "W", the keyboard object shouldn't record this event.

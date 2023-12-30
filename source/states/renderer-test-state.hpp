@@ -35,6 +35,10 @@ class RendererTestState: public our::State {
         renderer.render(&world);
     }
 
+    std::string getName() override {
+        return "renderer-test";
+    }
+
     void onDestroy() override {
         world.clear();
         our::clearAllAssets();

@@ -59,6 +59,10 @@ class EntityTestState: public our::State {
         }
     }
 
+    std :: string getName() override {
+        return "EntityTestState";
+    }
+
     void onDestroy() override {
         world.clear();
         our::clearAllAssets();

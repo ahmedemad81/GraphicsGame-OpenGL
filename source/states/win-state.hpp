@@ -172,6 +172,11 @@ class Winstate: public our::State {
         
     }
 
+    std::string getName()  {
+        return "win";
+    }
+
+
     void onDestroy() override {
         // Delete all the allocated resources
         delete rectangle;

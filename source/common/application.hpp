@@ -13,6 +13,7 @@
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
 
+extern  int health ; // Global variable to store health
 namespace our {
 
     // This struct handles window attributes: (title, size, isFullscreen).
@@ -36,6 +37,7 @@ namespace our {
         virtual void onDraw(double deltaTime){}         // Called every frame in the game loop passing the time taken to draw the frame "Delta time".
         virtual void onDestroy(){}                      // Called once after the game loop ends for house cleaning.
 
+        virtual std::string getName() {return "";}    // Returns the name of the scene.
 
         // Override these functions to get mouse and keyboard event.
         virtual void onKeyEvent(int key, int scancode, int action, int mods){}      

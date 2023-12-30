@@ -58,6 +58,10 @@ class ShaderTestState: public our::State {
         glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 
+    std:: string getName() override {
+        return "Shader Test";
+    }
+
     void onDestroy() override {
         delete shader;
         glDeleteVertexArrays(1, &vertex_array);

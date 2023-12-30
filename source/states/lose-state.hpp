@@ -172,6 +172,10 @@ class Losestate: public our::State {
         
     }
 
+    std::string getName() override {
+        return "lose";
+    }
+
     void onDestroy() override {
         // Delete all the allocated resources
         delete rectangle;

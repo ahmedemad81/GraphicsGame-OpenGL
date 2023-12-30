@@ -62,6 +62,10 @@ class MaterialTestState: public our::State {
         
     }
 
+    std::string getName() override {
+        return "material-test";
+    }
+
     void onDraw(double deltaTime) override {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // The material setup will use the shader, setup the pipeline state

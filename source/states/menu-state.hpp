@@ -170,6 +170,10 @@ class Menustate: public our::State {
         
     }
 
+    std::string getName() override {
+        return "menu";
+    }
+
     void onDestroy() override {
         // Delete all the allocated resources
         delete rectangle;

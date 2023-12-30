@@ -211,30 +211,6 @@ int our::Application::run(int run_for_frames) {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330 core");
 
-    // ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y));
-    // ImGui::Begin(" ", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-    // ImGui::SetWindowPos(" ", ImVec2(0, 0));
-
-    // // Initialize the style of the window (to set colors)
-    // ImGuiStyle *style = &ImGui::GetStyle();
-
-    // ImVec4 *colors = style->Colors;
-    // colors[ImGuiCol_WindowBg] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-    // colors[ImGuiCol_Border] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-
-    // // // Set Cursor Position
-    // // ImGui::SetCursorPosX(60/1200.0f*io.DisplaySize.x);
-    // // ImGui::SetCursorPosY(0);
-    // // Display the score
-    // ImGui::PushFont(font);
-    // std::string l1 = "Health: ";
-    // std::string l2 = std::to_string(health);
-    // std::string totalLine = l1 + l2;
-    // ImGui::Text(totalLine.c_str());
-    // ImGui::PopFont();
-
-    // ImGui::End();
-
     // This part of the code extracts the list of requested screenshots and puts them into a priority queue
     using ScreenshotRequest = std::pair<int, std::string>;
     std::priority_queue<
@@ -275,6 +251,30 @@ int our::Application::run(int run_for_frames) {
         ImGui::NewFrame();
 
         if(currentState) currentState->onImmediateGui(); // Call to run any required Immediate GUI.
+
+        ImGui::SetNextWindowSize(ImVec2(380, 100));
+        ImGui::Begin(" ", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+        ImGui::SetWindowPos(" ", ImVec2(0, 20));
+
+        // Initialize the style of the window (to set colors)
+        ImGuiStyle *style = &ImGui::GetStyle();
+
+        ImVec4 *colors = style->Colors;
+        colors[ImGuiCol_WindowBg] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+        colors[ImGuiCol_Border] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+
+        // Set Cursor Position
+        ImGui::SetCursorPosX(60/1200.0f*io.DisplaySize.x);
+        ImGui::SetCursorPosY(0);
+        // Display the score
+        ImGui::PushFont(font);
+        std::string l1 = "Health: ";
+        std::string l2 = std::to_string(2);
+        std::string totalLine = l1 + l2;
+        ImGui::Text(totalLine.c_str());
+        ImGui::PopFont();
+
+        ImGui::End();
 
         // If ImGui is using the mouse or keyboard, then we don't want the captured events to affect our keyboard and mouse objects.
         // For example, if you're focusing on an input and writing "W", the keyboard object shouldn't record this event.

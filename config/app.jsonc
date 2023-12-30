@@ -251,20 +251,20 @@
                     "specular_sampler": "default"                
                 },
                 "skull":{
-                    "type": "textured",
-                    "shader": "textured",
-                    "pipelineState": {
-                        "faceCulling":{
-                            "enabled": false
-                        },
-                        "depthTesting":{
-                            "enabled": true
-                        }
+                "type": "textured",
+                "shader": "textured",
+                "pipelineState": {
+                    "faceCulling":{
+                        "enabled": false
                     },
-                    "tint": [1, 1, 1, 1],
-                    "texture": "skull",
-                    "sampler": "default"
-                }
+                    "depthTesting":{
+                        "enabled": true
+                    }
+                },
+                "tint": [1, 1, 1, 1],
+                "texture": "skull",
+                "sampler": "default"
+            }
             }
         },
         "world":[
@@ -286,8 +286,25 @@
                 "children": [
                     {
                         "name": "sword",
-                        "position": [1, -1, -1.5],
+                        "position": [1.5, -1, -1.5],
                         "rotation": [45, 45, 0],
+                        "scale": [0.1, 0.1, 0.02],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "sword",
+                                "material": "sword"
+                            },
+                            {
+                                "type": "Collider",
+                                "Radius": 0.1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "sword",
+                        "position": [-1.5, -1, -1.5],
+                        "rotation": [45, -45, 0],
                         "scale": [0.1, 0.1, 0.02],
                         "components": [
                             {
@@ -307,7 +324,7 @@
                 "name": "monster",
                 "position": [5, -0.7, -15],
                 "rotation": [0, 0, 0],
-                "scale": [0.1, 0.1, 0.1],
+                "scale": [0.15, 0.15, 0.15],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -321,7 +338,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.5
+                        "Radius": 1
                     }
                 ]
             },
@@ -329,7 +346,7 @@
                 "name": "monster",
                 "position": [-5, -0.7, -20],
                 "rotation": [0, 0, 0],
-                "scale": [0.1, 0.1, 0.1],
+                "scale": [0.15, 0.15, 0.15],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -343,7 +360,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.5
+                        "Radius": 1
                     }
                 ]
             },
@@ -351,7 +368,7 @@
                 "name": "monster",
                 "position": [-5, -0.7, -10],
                 "rotation": [0, 0, 0],
-                "scale": [0.1, 0.1, 0.1],
+                "scale": [0.15, 0.15, 0.15],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -365,7 +382,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.5
+                        "Radius": 1
                     }
                 ]
             },
@@ -373,7 +390,7 @@
                 "name": "monster",
                 "position": [9, -0.7, -20],
                 "rotation": [0, 0, 0],
-                "scale": [0.1, 0.1, 0.1],
+                "scale": [0.15, 0.15, 0.15],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -387,7 +404,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.5
+                        "Radius": 1
                     }
                 ]
             },
@@ -395,7 +412,7 @@
                 "name": "monster",
                 "position": [0, -0.7, 2],
                 "rotation": [0, 0, 0],
-                "scale": [0.1, 0.1, 0.1],
+                "scale": [0.15, 0.15, 0.15],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -409,7 +426,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.5
+                        "Radius": 1
                     }
                 ]
             },
@@ -417,7 +434,7 @@
                 "name": "skull",
                 "position": [3, -0.2, 5],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -431,7 +448,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -439,7 +456,7 @@
                 "name": "skull",
                 "position": [-3, -0.2, 5],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -453,7 +470,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -461,7 +478,7 @@
                 "name": "skull",
                 "position": [0, -0.2, -5],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -475,7 +492,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -484,7 +501,7 @@
                 "name": "skull",
                 "position": [3, 3, -10],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -498,7 +515,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -506,7 +523,7 @@
                 "name": "skull",
                 "position": [3, -5, -5],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -520,7 +537,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -529,7 +546,7 @@
                 "name": "skull",
                 "position": [-5, 1, -5],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -543,7 +560,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -551,7 +568,7 @@
                 "name": "skull",
                 "position": [-5, 1, 0],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -565,7 +582,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -573,7 +590,7 @@
                 "name": "skull",
                 "position": [-5, 1, -20],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -587,7 +604,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },
@@ -595,7 +612,7 @@
                 "name": "skull",
                 "position": [5, 1, 0],
                 "rotation": [0, 0, 0],
-                "scale": [0.05, 0.05, 0.05],
+                "scale": [0.04, 0.04, 0.04],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -609,7 +626,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.6
+                        "Radius": 0.9
                     }
                 ]
             },

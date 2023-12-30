@@ -56,15 +56,25 @@ class Playstate: public our::State {
             getApp()->changeState("menu");
         }
 
-        // If no entites called montser exist, go to win state 
+        // If no entites called monster exist, go to win state 
         int monster_count = 0;
+        our::Entity* win_wall = nullptr;
+        our::Entity* player = nullptr;
         for(auto entity : world.getEntities()){
-            if(entity->name == "monster")
+            if (entity->name == "monster")
             {
                 monster_count++;
             }
+            if (entity->name == "win_wall")
+            {
+                win_wall = entity;
+            }
+            if (entity->name == "player")
+            {
+                player = entity;
+            }
         }
-        if (monster_count == 0)
+        if ((win_wall->localTransform.position.z + 0.5 >= player->localTransform.position.z) && (monster_count == 0))
         {
             getApp()->changeState("win");
         }

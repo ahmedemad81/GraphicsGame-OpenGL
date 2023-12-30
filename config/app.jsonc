@@ -41,7 +41,7 @@
                 "planet": "assets/textures/planet.jpg",
                 "ground": "assets/textures/dreamy_ground.png",
                 "wood": "assets/textures/wood.jpg",
-                "hell": "assets/textures/hell.jpg",
+                "dreamy_wall": "assets/textures/dreamy_ground.png",
                 "glass": "assets/textures/glass-panels.png",
                 "monkey": "assets/textures/monkey.png",
                 "sword": "assets/textures/sword.png",
@@ -203,7 +203,7 @@
                     "texture": "planet",
                     "sampler": "default"
                 },
-                "hell": {
+                "dreamy_wall": {
                     "type": "textured_lit",
                     "shader": "litTextured",
                     "pipelineState": {
@@ -215,7 +215,30 @@
                         }
                     },
                     "tint": [1, 1, 1, 1],
-                    "texture": "hell",
+                    "texture": "dreamy_wall",
+                    "sampler": "default",
+                    "ambient": [1, 1, 0, 1],
+                    "shininess": 4.0,
+                    "albedo_map": "albedo",
+                    "roughness_map": "roughness",
+                    "specular_map": "specular",
+                    "albedo_sampler": "default",
+                    "roughness_sampler": "default",
+                    "specular_sampler": "default"                
+                },
+                "hell_wall": {
+                    "type": "textured_lit",
+                    "shader": "litTextured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "monster",
                     "sampler": "default",
                     "ambient": [1, 1, 0, 1],
                     "shininess": 4.0,
@@ -402,13 +425,13 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.2
+                        "Radius": 0.3
                     }
                 ]
             },
             {
-                "position": [0, 8, 4],
-                "rotation": [-60, -70, -50],
+                "position": [0, 2, -15],
+                "rotation": [0, 0, -30],
                 "scale": [0.1, 0.1, 0.1],
                 "components": [{
                         "type": "Light",
@@ -423,7 +446,23 @@
                 ]
             },
             {
-                "position": [6, 5, -20],
+                "position": [0, 2, 15],
+                "rotation": [0, 0, 30],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [{
+                        "type": "Light",
+                        "ambient": [1, 1, 1, 1],
+                        "lightType": "directional"
+                    },
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "smooth_sphere",
+                        "material": "metal"
+                    }
+                ]
+            },
+            {
+                "position": [2, 2, -20],
                 "rotation": [-20, 210, -50],
                 "scale": [0.1, 0.1, 0.1],
                 "components": [{
@@ -442,13 +481,32 @@
                 ]
             },
             {
-                "position": [-2, 5, -20],
+                "position": [-2, 2, -20],
                 "rotation": [-60, 210, -50],
                 "scale": [0.1, 0.1, 0.1],
                 "components": [{
                         "type": "Light",
                         "ambient": [1, 1, 1, 1],
                         "lightType": "point"
+                    },
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "smooth_sphere",
+                        "material": "metal"
+                    }
+                ]
+            },
+            {
+                "position": [2, 2, 20],
+                "rotation": [-20, 210, 50],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [{
+                        "type": "Light",
+                        "ambient": [1, 1, 1, 1],
+                        "lightType": "spot",
+                        "inner_angle": 10,
+                        "outer_angle": 20,
+                        "attenuation_quadratic": 0.1
                     },
                     {
                         "type": "Mesh Renderer",
@@ -466,7 +524,7 @@
                     {
                         "type": "Mesh Renderer",
                         "mesh": "plane",
-                        "material": "TintedWall"
+                        "material": "dreamy_wall"
                     }
                 ]
             },
@@ -479,7 +537,7 @@
                     {
                         "type": "Mesh Renderer",
                         "mesh": "plane",
-                        "material": "TintedWall"
+                        "material": "hell_wall"
                     },
                     {
                         "type": "Collider",
@@ -488,9 +546,9 @@
                 ]
             },
             {
-                "position": [0, 10, 0],
+                "position": [0, 12, 0],
                 "rotation": [0, 0, 0],
-                "scale": [5, 5, 5],
+                "scale": [4, 4, 4],
                 "components": [
                     {
                         "type": "Mesh Renderer",

@@ -101,9 +101,18 @@ namespace our
                                     app->changeState("lose"); // change state to lose
                                 }
 
+                            } 
+					    }
+                        // If player collides with plane, player goes up again
+                        if (collider1_name == "player" && collider2_name == "plane")
+                        {
+                            if (player->localTransform.position.y - 1.5 <= collider2->getOwner()->localTransform.position.y)
+                            {
+                                player->localTransform.position.y += 0.3f;
                             }
                             
-					    }
+                        }
+                        
 				    }
 			    }
             }

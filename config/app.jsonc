@@ -165,9 +165,9 @@
                             "enabled": true
                         }
                     },
-                    "tint": [1, 1, 1, 1],
-                    "ambient": [0, 0, 1, 1],
-                    "shininess": 30.0,
+                    "tint": [0.3, 0.5, 0.3, 1],
+                    "ambient": [0.8, 0, 0.9, 1],
+                    "shininess": 10.0,
                     "texture": "sword",
                     "sampler": "default"
                 },
@@ -285,9 +285,9 @@
                 "children": [
                     {
                         "name": "sword",
-                        "position": [1, -1, -1],
+                        "position": [1, -1, -1.5],
                         "rotation": [45, 45, 0],
-                        "scale": [0.1, 0.1, 0.05],
+                        "scale": [0.1, 0.1, 0.02],
                         "components": [
                             {
                                 "type": "Mesh Renderer",
@@ -306,7 +306,7 @@
                 "name": "monster",
                 "position": [3, -0.7, -5],
                 "rotation": [0, 0, 0],
-                "scale": [0.08, 0.08, 0.08],
+                "scale": [0.1, 0.1, 0.1],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -328,7 +328,7 @@
                 "name": "monster",
                 "position": [0, -0.7, 2],
                 "rotation": [0, 0, 0],
-                "scale": [0.08, 0.08, 0.08],
+                "scale": [0.1, 0.1, 0.1],
                 "components": [
                     {
                         "type": "Mesh Renderer",

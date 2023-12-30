@@ -45,7 +45,7 @@ namespace our
                         // Normalize the direction
                         direction = normalize(direction);
                         // Move the zombie in the direction of the player
-                        entity->localTransform.position += deltaTime * direction;
+                        entity->localTransform.position += deltaTime * direction * 3.0f;
                         // Rotate the zombie to look at the player
                         auto angle = atan2(direction.x, direction.z);
                         entity->localTransform.rotation = glm::vec3(0, angle, 0);

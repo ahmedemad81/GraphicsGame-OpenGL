@@ -122,6 +122,26 @@ namespace our
                                 app->changeState("lose"); // change state to lose
                             }
                         }
+
+                        // If player left the plane in the x-axis, player loses
+                        if (collider1_name == "player" && collider2_name == "plane")
+                        {
+                            // Must be close distance in the x-axis
+                            if ( abs(player->localTransform.position.x) >= collider2->getOwner()->localTransform.position.x + 9.5)
+                            {
+                                // Loses health
+                                if (health == 2)
+                                {
+                                    health -= 1;
+                                    app->changeState("injured"); // change state to injured
+                                }
+                                else if (health == 1)
+                                {
+                                    app->changeState("injured"); // change state to injured
+                                }
+                            }
+                        }
+
 				    }
 			    }
             }

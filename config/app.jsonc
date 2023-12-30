@@ -41,11 +41,19 @@
                 "planet": "assets/textures/planet.jpg",
                 "ground": "assets/textures/dreamy_ground.png",
                 "wood": "assets/textures/wood.jpg",
+                "hell": "assets/textures/hell.jpg",
                 "glass": "assets/textures/glass-panels.png",
                 "monkey": "assets/textures/monkey.png",
                 "sword": "assets/textures/sword.png",
                 "monster": "assets/textures/monster.png",
-                "skull": "assets/textures/skull.jpg"
+                "skull": "assets/textures/skull.jpg",
+                "roughness": "assets/materials/roughness.jpg",
+                "specular": "assets/materials/specular.jpg",
+                "ambient_occlusion": "assets/materials/ambient_occlusion.jpg",
+                "emissive": "assets/materials/emissive.jpg",
+                "specular_black": "assets/materials/specular_black.jpg",
+                "albedo_black": "assets/materials/albedo_black.jpg",
+                "roughness_black": "assets/materials/roughness_black.jpg"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
@@ -112,15 +120,7 @@
                     },
                     "tint": [1, 1, 1, 1],
                     "texture": "ground",
-                    "sampler": "default",
-                    "ambient": [1, 1, 0, 1],
-                    "shininess": 4.0,
-                    "albedo_map": "albedo",
-                    "roughness_map": "roughness",
-                    "specular_map": "specular",
-                    "albedo_sampler": "default",
-                    "roughness_sampler": "default",
-                    "specular_sampler": "default"    
+                    "sampler": "default"
                 },
                 "monkey":{
                     "type": "textured",
@@ -141,16 +141,18 @@
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
-                        "faceCulling":{
+                        "faceCulling": {
                             "enabled": false
                         },
-                        "depthTesting":{
+                        "depthTesting": {
                             "enabled": true
                         }
                     },
                     "tint": [1, 1, 1, 1],
                     "texture": "monster",
-                    "sampler": "default"
+                    "sampler": "default",
+                    "ambient": [1, 1, 0, 1],
+                    "shininess": 4.0
                 },
                 "sword":{
                     "type": "tinted_lit",
@@ -200,6 +202,29 @@
                     "tint": [1, 1, 1, 1],
                     "texture": "planet",
                     "sampler": "default"
+                },
+                "hell": {
+                    "type": "textured_lit",
+                    "shader": "litTextured",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "hell",
+                    "sampler": "default",
+                    "ambient": [1, 1, 0, 1],
+                    "shininess": 4.0,
+                    "albedo_map": "albedo",
+                    "roughness_map": "roughness",
+                    "specular_map": "specular",
+                    "albedo_sampler": "default",
+                    "roughness_sampler": "default",
+                    "specular_sampler": "default"                
                 },
                 "skull":{
                     "type": "textured",
@@ -384,18 +409,11 @@
             {
                 "position": [0, 8, 4],
                 "rotation": [-60, -70, -50],
-                //"rotation": [0, -180, 0],
                 "scale": [0.1, 0.1, 0.1],
                 "components": [{
                         "type": "Light",
                         "ambient": [1, 1, 1, 1],
                         "lightType": "directional"
-                        // "inner_angle": 1.58,
-                        // "outer_angle": 4.13,
-                        //"attenuation_quadratic": 0.2
-                        //"lightType": "point"
-                        //"lightType": "spot"
-
                     },
                     {
                         "type": "Mesh Renderer",
@@ -405,15 +423,12 @@
                 ]
             },
             {
-                "position": [-10, 5, -20],
-                "rotation": [-60, 210, -50],
-                //"rotation": [0, -180, 0],
+                "position": [6, 5, -20],
+                "rotation": [-20, 210, -50],
                 "scale": [0.1, 0.1, 0.1],
                 "components": [{
                         "type": "Light",
                         "ambient": [1, 1, 1, 1],
-                        //"lightType": "directional"
-                        //"lightType": "point"
                         "lightType": "spot",
                         "inner_angle": 1.58,
                         "outer_angle": 4.13,
@@ -427,19 +442,13 @@
                 ]
             },
             {
-                "position": [-1, 2, -22],
+                "position": [-2, 5, -20],
                 "rotation": [-60, 210, -50],
-                //"rotation": [0, -180, 0],
                 "scale": [0.1, 0.1, 0.1],
                 "components": [{
                         "type": "Light",
-                        "ambient": [0, 1, 0, 1],
-                        //"lightType": "directional"
+                        "ambient": [1, 1, 1, 1],
                         "lightType": "point"
-                        //"lightType": "spot",
-                        // "inner_angle": 1.58,
-                        // "outer_angle": 4.13,
-                        // "attenuation_quadratic": 0.2
                     },
                     {
                         "type": "Mesh Renderer",

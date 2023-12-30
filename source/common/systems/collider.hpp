@@ -102,6 +102,7 @@ namespace our
                                 }
 
                             } 
+                            
 					    }
                         // If player collides with plane, player goes up again
                         if (collider1_name == "player" && collider2_name == "plane")
@@ -112,7 +113,15 @@ namespace our
                             }
                             
                         }
-                        
+                        // If player collides with lose plane, player loses
+                        if (collider1_name == "player" && collider2_name == "lose_wall")
+                        {
+                            // Must be close distance in the z-axis
+                            if (player->localTransform.position.z + 0.5 >= collider2->getOwner()->localTransform.position.z)
+                            {
+                                app->changeState("lose"); // change state to lose
+                            }
+                        }
 				    }
 			    }
             }

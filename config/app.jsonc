@@ -458,10 +458,6 @@
                         "type": "Mesh Renderer",
                         "mesh": "plane",
                         "material": "TintedWall"
-                    },
-                    {
-                        "type": "Collider",
-                        "Radius": 0.2
                     }
                 ]
             },
@@ -478,7 +474,7 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.2
+                        "Radius": 0.5
                     }
                 ]
             },

@@ -68,11 +68,6 @@ namespace our
                                 world->markForRemoval(collider2->getOwner());
                                 world->deleteMarkedEntities();
                             }
-                            // else if(collider1_name=="monster" && collider2_name=="sword") 
-                            // {
-                            //     world->markForRemoval(collider1->getOwner());
-                            //     world->deleteMarkedEntities();
-                            // }
                             
                             // If player collides with monster, player loses health
                             if(collider1_name=="player" && collider2_name=="monster") 
@@ -90,25 +85,27 @@ namespace our
                                 }
 
                             }
-                            // else if(collider1_name=="monster" && collider2_name=="player") 
-                            // {
-                            //     if (health == 2)
-                            //     {
-                            //         health -= 1;
 
-                            //         world->markForRemoval(collider1->getOwner());
-                            //         world->deleteMarkedEntities(); // delete the monster who hit the player
-                            //         app->changeState("injured"); // change state to injured
-                            //     }
-                            //     else if (health == 1)
-                            //     {
-                            //         app->changeState("lose"); // change state to lose
-                            //     }
-                                
-                            // }
-					}
-				}
-			}
+                            // If player collides with skull, player loses health
+                            if (collider1_name == "player" && collider2_name == "skull")
+                            {
+                                if (health == 2)
+                                {
+                                    health -= 1;
+                                    world->markForRemoval(collider2->getOwner());
+                                    world->deleteMarkedEntities(); // delete the monster who hit the player
+                                    app->changeState("injured"); // change state to injured
+                                }
+                                else if (health == 1)
+                                {
+                                    app->changeState("lose"); // change state to lose
+                                }
+
+                            }
+                            
+					    }
+				    }
+			    }
             }
         };
     };

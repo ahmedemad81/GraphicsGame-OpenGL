@@ -50,6 +50,16 @@ namespace our
                         auto angle = atan2(direction.x, direction.z);
                         entity->localTransform.rotation = glm::vec3(0, angle, 0);
                     }
+                    if (entity->name == "skull")
+                    {
+                        // Get the direction from the zombie to the player
+                        auto direction = (playerPos - entity->localTransform.position);
+                        // Normalize the direction
+                        direction = normalize(direction);
+                        // Rotate the zombie to look at the player
+                        auto angle = atan2(direction.x, direction.z);
+                        entity->localTransform.rotation = glm::vec3(-90, angle, 0);
+                    }
                 }
 
             }

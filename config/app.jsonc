@@ -38,7 +38,7 @@
                 }
             },
             "textures":{
-                "moon": "assets/textures/moon.jpg",
+                "planet": "assets/textures/planet.jpg",
                 "ground": "assets/textures/dreamy_ground.png",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
@@ -186,7 +186,7 @@
                     "specular":[0.8,0.8,0.8,0.8],
                     "diffuse":[0.5,0.5,0.5,0.5]
                 },
-                "moon":{
+                "planet":{
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
@@ -198,7 +198,7 @@
                         }
                     },
                     "tint": [1, 1, 1, 1],
-                    "texture": "moon",
+                    "texture": "planet",
                     "sampler": "default"
                 },
                 "skull":{
@@ -221,7 +221,7 @@
         "world":[
             {
                 "name": "player",
-                "position": [0, 0.3, 10],
+                "position": [0, 0.1, 10],
                 "components": [
                     {
                         "type": "Camera"
@@ -300,9 +300,9 @@
             },
             {
                 "name": "skull",
-                "position": [0, -0.7, 5],
+                "position": [3, -0.5, 5],
                 "rotation": [0, 0, 0],
-                "scale": [0.08, 0.08, 0.08],
+                "scale": [0.03, 0.03, 0.03],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -316,7 +316,51 @@
                     },
                     {
                         "type": "Collider",
-                        "Radius": 0.5
+                        "Radius": 0.6
+                    }
+                ]
+            },
+            {
+                "name": "skull",
+                "position": [-3, -0.5, 5],
+                "rotation": [0, 0, 0],
+                "scale": [0.03, 0.03, 0.03],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
+                    }
+                ]
+            },
+            {
+                "name": "skull",
+                "position": [0, -0.5, -5],
+                "rotation": [0, 0, 0],
+                "scale": [0.03, 0.03, 0.03],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                        "type": "Collider",
+                        "Radius": 0.6
                     }
                 ]
             },
@@ -411,17 +455,17 @@
             },
             {
                 "position": [0, 10, 0],
-                "rotation": [45, 45, 0],
+                "rotation": [0, 0, 0],
                 "scale": [5, 5, 5],
                 "components": [
                     {
                         "type": "Mesh Renderer",
                         "mesh": "sphere",
-                        "material": "moon"
+                        "material": "planet"
                     },
                     {
                         "type": "Movement",
-                        "angularVelocity": [0, 90, 0]
+                        "angularVelocity": [0, 45, 0]
                     }
                 ]
             }

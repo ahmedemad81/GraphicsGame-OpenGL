@@ -258,7 +258,7 @@ int our::Application::run(int run_for_frames) {
         // Create a window to display the score only if the game is running
         if (currentState->getName() == "play" || currentState->getName() == "injured"  )
         {
-        ImGui::SetNextWindowSize(ImVec2(380, 100));
+        ImGui::SetNextWindowSize(ImVec2(450, 100));
         ImGui::Begin(" ", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
         ImGui::SetWindowPos(" ", ImVec2(0, 20));
 

@@ -300,7 +300,7 @@
             },
             {
                 "name": "skull",
-                "position": [3, -0.5, 5],
+                "position": [3, -0.2, 5],
                 "rotation": [0, 0, 0],
                 "scale": [0.03, 0.03, 0.03],
                 "components": [
@@ -322,7 +322,7 @@
             },
             {
                 "name": "skull",
-                "position": [-3, -0.5, 5],
+                "position": [-3, -0.2, 5],
                 "rotation": [0, 0, 0],
                 "scale": [0.03, 0.03, 0.03],
                 "components": [
@@ -344,7 +344,7 @@
             },
             {
                 "name": "skull",
-                "position": [0, -0.5, -5],
+                "position": [0, -0.2, -5],
                 "rotation": [0, 0, 0],
                 "scale": [0.03, 0.03, 0.03],
                 "components": [
